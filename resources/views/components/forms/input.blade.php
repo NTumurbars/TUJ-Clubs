@@ -1,0 +1,1 @@
+<h2>This is my layout component</h2>
