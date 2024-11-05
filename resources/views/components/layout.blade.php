@@ -23,7 +23,8 @@
     <main class="py-8 px-4 mx-auto max-w-screen-lg" id ="body">
         {{ $slot }}
     </main>
-
+    <script src="..\..\..\js\chatClient.js"></script>
+    <script src="..\..\..\js\chatClient.js"></script>
 </body>
 
 </html>
