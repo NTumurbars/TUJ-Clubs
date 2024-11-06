@@ -18,10 +18,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'username',
         'email',
-        'password',
-        'birthday',
+        'isadmin',
     ];
 
     /**
@@ -30,9 +28,42 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+      
         'password',
         'remember_token',
     ];
+
+
+
+    public function clubMemberships()
+    {
+        return $this->hasMany(ClubMembership::class);
+    }
+
+    //reverse of the users in club class. pretty much same.
+    public function clubs()
+    {
+        return $this->belongsToMany(Club::class, 'club_memberships')
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
+
+    //Users can have many of these things.
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function formResponses()
+    {
+        return $this->hasMany(FormResponse::class);
+    }
+
+    public function clubRequests()
+    {
+        return $this->hasMany(ClubRequest::class, 'responder_id');
+    }
 
     /**
      * Get the attributes that should be cast.

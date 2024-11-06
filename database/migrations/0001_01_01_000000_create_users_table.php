@@ -20,8 +20,6 @@ return new class extends Migration
 
             $table->boolean('is_admin')->default(false); // for now the simplest way to know who is admin. Technically we can create user_admin table for admins but I am not sure if are going to need that.
         
-
-            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -65,15 +63,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        
         //I am not sure how we approuch club requests. We can have a feature for the clubs to create the club request form and manage it. 
         //But this means we basically need a function to build a form with different types of questions etc.
         //We will need form table, form questions table and form response table.
         //Or we can have a unified form for each clubs. They will have a big text area where the club leader can change the text. And also a one big text area where the answer can go
         //in here form table and form respone table only. I will create the tables in this way for now
-
-
-
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('club_id')->constrained('clubs')->onDelete('cascade');
@@ -88,7 +82,7 @@ return new class extends Migration
         Schema::create('form_responses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('club_form_id')->constrained('form')->onDelete('cascade');
+            $table->foreignId('club_form_id')->constrained('forms')->onDelete('cascade');
             $table->text('answer')->nullable();
             $table->timestamps();
             
@@ -97,10 +91,10 @@ return new class extends Migration
         });
 
         //I have separated club ruqests from the form responses just in case if we use use the form in other things than club requests
-
+    
         Schema::create('club_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained('form')->onDelete('cascade');
+            $table->foreignId('form_response_id')->constrained('form_responses')->onDelete('cascade');
 
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignId('responder_id')->nullable()->constrained('users')->onDelete('cascade');
@@ -108,9 +102,11 @@ return new class extends Migration
             $table->timestamp('responded_at')->nullable();
             $table->timestamps();
 
-            $table->unique(['club_id', 'user_id']);
+            $table->unique(['form_response_id']);
         });
 
+
+        //defualt stuffs we can possibly remove them
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
