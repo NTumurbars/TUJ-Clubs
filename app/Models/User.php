@@ -19,7 +19,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'isadmin',
+        'isadmin', // we dont need it here. We can directly specify that in the clubmembershpi table
+        'google_id',
     ];
 
     /**

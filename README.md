@@ -11,13 +11,13 @@
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   [Simple, fast routing engine](https://laravel.com/docs/routing).
+-   [Powerful dependency injection container](https://laravel.com/docs/container).
+-   Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+-   Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+-   Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+-   [Robust background job processing](https://laravel.com/docs/queues).
+-   [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
@@ -35,19 +35,19 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 
 ### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+-   **[Vehikl](https://vehikl.com/)**
+-   **[Tighten Co.](https://tighten.co)**
+-   **[WebReinvent](https://webreinvent.com/)**
+-   **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+-   **[64 Robots](https://64robots.com)**
+-   **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+-   **[Cyber-Duck](https://cyber-duck.co.uk)**
+-   **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+-   **[Jump24](https://jump24.co.uk)**
+-   **[Redberry](https://redberry.international/laravel/)**
+-   **[Active Logic](https://activelogic.com)**
+-   **[byte5](https://byte5.de)**
+-   **[OP.GG](https://op.gg)**
 
 ## Contributing
 
@@ -64,3 +64,81 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Google SSO
+
+Used google sso to handle user authentication
+
+### Step 1
+
+You need Laravel plugin:
+Use the following code in the root of your project
+
+```console
+composer require laravel/socialite
+```
+
+This adds socialite plugin which allows users to have third party authentications for socials such as google, x, facebook etc.,
+
+#### Note:
+
+Upon using this only the
+composer.json
+composer.lock change
+As mentioned now our application is ready to use SSO from third parties
+
+### Step 2
+
+Change the services file inside config i.e., navigate to config/services.php
+
+Here we need to connect the google client with our application
+We specify the client id, client secret and the call back url from our .env file
+
+### Step 3
+
+Change the .env file
+
+Here we specify the google client id and secret
+
+google client id is used to identify the configuration and secret is well secret
+so based on the client id and secret we will be able to access the desired google authentication
+
+### Step 4
+
+Changes to routes
+Since we specify the call back route inside the .env file and the google dev console
+we need to update the routes in our application
+
+### Step 5 (Changes Required)
+
+Changes to controller
+We need a dedicated controller to manage the google authentication service
+We can use the following code to create a new folder inside the controllers folder
+
+```python
+php artisan make:controller Auth/GoogleController
+```
+
+We dictate the behavior of the sso here
+
+### Step 6 (Changes Required)
+
+Create/Update user model
+Since we need to associate them with google id (may be I should delete this later on for the application purpose)
+
+### Step 7 (Should delete this maybe)
+
+To create a new migration use:
+
+```python
+php artisan make:migration add_google_id_to_users_table
+```
+
+This creates a new migration folder which we will be using to define the behavior of google_id
+
+Once done with all this you need to push the new schema to db
+We can use the following code for that:
+
+```python
+php artisan migrate
+```
