@@ -73,6 +73,9 @@
 
             <button type="submit" class="btn">Register</button>
         </form>
+        <a href="{{ route('login.google') }}" class="btn btn-danger">
+            Login with Google
+        </a>
     </div>
 
 </x-layout>
