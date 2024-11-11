@@ -1,10 +1,10 @@
 <x-layout>
     <h1 class="title">
-        Register a new account
+        Join us
     </h1>
 
     <div class="mx-auto max-w-sm card">
-        <form action="{{ route('register') }}" method="POST">
+        {{-- <form action="{{ route('register') }}" method="POST">
 
             @csrf
 
@@ -72,9 +72,20 @@
             </div>
 
             <button type="submit" class="btn">Register</button>
-        </form>
+        </form> --}}
+
+
+        {{-- Left Accent Border source: https://v1.tailwindcss.com/components/alerts --}}
+        @if ($errors->has('email'))
+            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-2" role="alert">
+                <p class="font-bold">Error</p>
+                <p> {{ $errors->first('email') }}</p>
+            </div>
+            <br>
+        @endif
+
         <a href="{{ route('login.google') }}" class="btn btn-danger">
-            Login with Google
+            Login with TUJ Google account
         </a>
     </div>
 
