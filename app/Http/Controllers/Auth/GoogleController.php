@@ -15,29 +15,46 @@ class GoogleController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
+
     public function handleGoogleCallback()
     {
         try {
-            $user = Socialite::driver('google')->user();
-            $finduser = User::where('google_id', $user->id)->first(); // This is sql query for searching ppl inside the db
-            //If found we need to let them access the stuff
-            if ($finduser) {
-                Auth::login($finduser);//May be they are tryna authenticate the user
-                return redirect()->intended('dashboard'); // This is to redirect the user to a page in this case dashboard
-            } //Else we ask them to use the google service again 
-            else {
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id'=> $user->id, // might not need it 
-                    'password' => encrypt('123456dummy') //We odnt need it
-                ]);
+            $potentialUser = Socialite::driver('google')->user();
 
-                Auth::login($newUser);
-                return redirect()->intended('dashboard');
+                
+            //Named Error Bags
+            if (!isset($potentialUser->user['hd']) ||$potentialUser->user['hd'] !== 'temple.edu') {
+                //there is no other way to logout so I just added this in here to debug the welcome banner message and design
+                Auth::logout();
+                return redirect()->route('login')->withErrors(['email' => 'You must use temple account to log in.']);
             }
-        } catch (\Exception $e) {
+
+
+
+
+            //#firstOrCreate
+            //The firstOrCreate method is very similar to the firstOrNew method. 
+            //It tries to find a model matching the attributes you pass in the first parameter. 
+            //If a model is not found, it automatically creates and saves a new Model after applying any attributes passed in the second parameter 
+            //source:https://laravel-news.com/firstornew-firstorcreate-firstor-updateorcreate#content-firstorcreate
+
+            $user = User::firstOrCreate(
+                ['email' => $potentialUser->email],
+                [
+                    'name' => $potentialUser->name,
+                ]
+            );
+
+            Auth::login($user);
+
+            return redirect()->intended('/');
+        }
+        catch (\Exception $e) {
+            $potentialUser = Socialite::driver('google')->user();
+            // dd($potentialUser);
             dd($e->getMessage());
         }
     }
 }
+
+

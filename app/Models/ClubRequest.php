@@ -21,7 +21,7 @@ class ClubRequest extends Model
 
 
     //A way to know which form it is related
-
+    
     public function formResponse()
     {
         return $this->belongsTo(FormResponse::class);
