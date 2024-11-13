@@ -20,7 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'isadmin', // we dont need it here. We can directly specify that in the clubmembershpi table
-        'google_id',
+        'profile_photo_link',
     ];
 
     /**
