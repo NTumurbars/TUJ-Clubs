@@ -41,7 +41,8 @@ class GoogleController extends Controller
             $user = User::firstOrCreate(
                 ['email' => $potentialUser->email],
                 [
-                    'name' => $potentialUser->name,
+                    'name' => $potentialUser->getName(),
+                    'profile_photo_link' => $potentialUser->getAvatar(),
                 ]
             );
 
