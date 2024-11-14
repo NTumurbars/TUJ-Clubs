@@ -1,8 +1,10 @@
 <x-layout>
     <h1 class="title">
-        Join us
+        TUJ Clubs
     </h1>
-
+    <br />
+    <p> We use google authentications services to authenticate our users </p>
+    <p>Use your <strong>TU mail</strong> to gain access to the website and its features</p>
     <div class="mx-auto max-w-sm card float-left">
         @if ($errors->has('email'))
             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-2" role="alert">
