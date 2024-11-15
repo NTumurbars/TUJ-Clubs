@@ -14,5 +14,6 @@ use App\Http\Controllers\Auth\GoogleController;
 
 Route::view('/', 'posts.index')->name('home');
 Route::view('login', 'auth.login')->name('login');
+Route::view('calendar', 'calendar.index')->name('calendar');
 Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
