@@ -15,7 +15,9 @@ class club extends Model
     ];
     
     //Club will have many members
-    public function clubMemberships()
+
+    //Changed this from clubMembership to just membership since we already know this is club
+    public function memberships()
     {
         return $this->hasMany(ClubMembership::class);
     }
@@ -47,5 +49,12 @@ class club extends Model
     public function clubRequests()
     {
         return $this->hasMany(ClubRequest::class);
+    }
+
+    public function isMember(User $user): bool
+    {
+        return $this->memberships()
+            ->where('user_id', $user->id)
+            ->exists();
     }
 }

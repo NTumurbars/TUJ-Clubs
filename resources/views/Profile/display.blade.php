@@ -3,6 +3,14 @@
         <div class="w-full mx-auto flex flex-col gap-4 px-4">
             <div class="w-full shadow-2xl p-6 rounded-xl dark:bg-gray-50/40">
                 <div>
+
+
+                    <!-- Success Message -->
+                    @if (session('success'))
+                        <div class="mt-2 mb-6 p-2 bg-green-500 text-white rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <h1 class="text-center text-3xl font-extrabold mb-2 dark:text-black">Profile</h1>
 
 
@@ -16,16 +24,14 @@
                 <h1 class="text-center mt-4 font-semibold dark:text-blue-900">{{ $user->name }}
                 </h1>
 
+
+
+
                 <div class="w-full rounded-lg bg-blue-500 mt-6 text-white text-lg font-semibold">
                     <a href="{{ route('profile.edit') }}" class="block w-full p-4 text-center">Edit Profile</a>
                 </div>
 
-                <!-- Success Message -->
-                @if (session('success'))
-                    <div class="mt-4 p-4 bg-green-500 text-white rounded">
-                        {{ session('success') }}
-                    </div>
-                @endif
+
             </div>
         </div>
         </div>

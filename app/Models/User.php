@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'isadmin', // we dont need it here. We can directly specify that in the clubmembershpi table
+        'is_admin', // we dont need it here. We can directly specify that in the clubmembershpi table
         'profile_photo_link',
     ];
 
@@ -65,16 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(ClubRequest::class, 'responder_id');
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+
+    public function isAdmin(): bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->is_admin;
     }
+
+
 }

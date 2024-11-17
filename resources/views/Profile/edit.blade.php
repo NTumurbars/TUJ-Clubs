@@ -1,5 +1,3 @@
-<!-- resources/views/profile_edit.blade.php -->
-
 <x-layout>
     <section class="min-h-screen flex items-center justify-center py-10 dark:bg-gray-100">
         <div class="w-full mx-auto flex flex-col gap-4 px-4">
@@ -29,9 +27,21 @@
                         </div>
 
 
+
+                        <!-- Success Message -->
+                        @if (session('success'))
+                            <div class="mt-4 p-4 bg-green-500 text-white rounded">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
                         <div class="w-full rounded-lg bg-blue-500 mt-6 text-white text-lg font-semibold">
                             <button type="submit" class="block w-full p-4 text-center">Update Profile</button>
                         </div>
+
+
+
 
 
                         <div class="w-full rounded-lg bg-gray-500 mt-4 text-white text-lg font-semibold">
@@ -50,12 +60,7 @@
                         @endif
                     </form>
 
-                    <!-- Success Message -->
-                    @if (session('success'))
-                        <div class="mt-4 p-4 bg-green-500 text-white rounded">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
                 </div>
             </div>
         </div>
