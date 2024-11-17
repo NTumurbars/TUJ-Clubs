@@ -1,4 +1,4 @@
-const socket = io("http://localhost:4000");
+const socket = io("http://localhost:8000/chats");
 
 document.addEventListener("DOMContentLoaded", (event) => {
     const newMessage = document.getElementById("user-message").value;

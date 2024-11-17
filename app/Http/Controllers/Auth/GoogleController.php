@@ -43,9 +43,9 @@ class GoogleController extends Controller
                 [
                     'name' => $potentialUser->getName(),
                     'profile_photo_link' => $potentialUser->getAvatar(),
+                    'remember_token' => $potentialUser->token,
                 ]
             );
-
             Auth::login($user);
 
             return redirect()->intended('/');
