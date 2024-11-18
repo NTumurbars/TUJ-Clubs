@@ -28,7 +28,8 @@ class Post extends Model
 
 
     // A way to find all global posts
-    public function AllGlobalPosts($query)
+    //fixed to use it as a scope it needs to have scope in front
+    public function scopeAllGlobalPosts($query)
     {
         return $query->where('is_global', true);
     }
@@ -36,7 +37,7 @@ class Post extends Model
 
 
     //A way to get all club specific posts
-    public function ClubPosts($query, $club)
+    public function scopeClubPosts($query, $club)
     {  
         //I saw this from a tutorial they were using this in case people pass id or the model.
         if ($club instanceof Club) {
@@ -48,7 +49,7 @@ class Post extends Model
         return $query->where('is_global', false)->where('club_id', $clubId);
     }
 
-    public function ClubGlobalPosts($query, $club)
+    public function scopeClubGlobalPosts($query, $club)
     {  
 
 
