@@ -9,7 +9,7 @@
 </head>
 
 <body class="bg-slate-100 text-slate-900">
-    <nav class="bg-gray-500">
+    <nav class="bg-zinc-500">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
 
@@ -22,7 +22,7 @@
                         <div class="flex space-x-4">
                             <a href="{{ route('home') }}"
                                 class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                                aria-current="page">Dashboard</a>
+                                aria-current="page">Home</a>
                             <a href="{{ route('clubs.main') }}"
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Clubs</a>
                             <a href="#"

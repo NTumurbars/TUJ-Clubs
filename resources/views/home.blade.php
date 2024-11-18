@@ -16,25 +16,34 @@
 
 
     @auth
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-semibold text-gray-800 mb-8">Club Announcements</h1>
 
-        <div class="container">
+            <div class="space-y-6">
+                @forelse ($globalPosts as $post)
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6">
+                        <div class="flex items-center mb-4">
+                            {{-- will add club avatar in club db once I figure out how to save picture --}}
+                            <img class="w-12 h-12 rounded-full object-cover mr-4"
+                                src="{{ $post->club->avatar ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa176-tAid4pc1T8-sMsYnxJ_QFyhXAahbOA&s' }}"
+                                alt="{{ $post->club->name }}'s logo">
 
-            {{-- maybe we should give a good name for this. I think global announcement is too dry but I will leave it for you guys to decide --}}
-            <h1>Global Announcements</h1>
-            {{-- announcements are not made yet --}}
-            @foreach ($globalPosts as $post)
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $post->title }}</h5>
-                        <p class="card-text">{{ $post->content }}</p>
-                        <p class="card-text">
-                            {{-- I have learned that we can use format format the dates it was wierd when it was YYYY MM DD but we may not even need th year --}}
-                            <small class="text-muted">Posted by {{ $post->club->name ?? $post->user->name }} on
-                                {{ $post->created_at->format('M d, Y') }}</small>
-                        </p>
+                            <div>
+                                <h2 class="text-lg font-semibold text-gray-900">{{ $post->club->name }}</h2>
+                                <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $post->title }}</h3>
+                            <p class="text-gray-700">{{ $post->content }}</p>
+                        </div>
+
                     </div>
-                </div>
-            @endforeach
+                @empty
+                    <p class="text-gray-600">No announcements available at the moment</p>
+                @endforelse
+            </div>
         </div>
     @endauth
 

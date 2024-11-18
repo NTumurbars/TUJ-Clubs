@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ClubController;
 
 use App\Http\Controllers\HomeController; 
@@ -79,11 +79,26 @@ Route::middleware('auth')->group(function () {
 
     Route::post('clubs/{club}/request-to-join', [ClubController::class, 'requestToJoin'])->name('clubs.requestToJoin');
 
-
+       
+    Route::put('clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
+    Route::delete('clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
     
 
 
-   
-    Route::put('clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
-    Route::delete('clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
+
+
+
+    //posts that are inside the club
+    Route::prefix('clubs/{club}')->group(function () {
+        Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
+        Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+
+        
+        Route::post('posts', [PostController::class, 'save'])->name('posts.save');
+       
+        Route::put('posts/{post}', [PostController::class, 'update'])->name('posts.update');
+        Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    });
 });
+

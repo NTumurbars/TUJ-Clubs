@@ -40,6 +40,22 @@ class User extends Authenticatable
         return $this->hasMany(ClubMembership::class);
     }
 
+    //Added a function related to retrieve role and color. This is used in the club.display
+    public function getRoleInClub($clubId)
+    {
+        return $this->clubMemberships()->where('club_id', $clubId)->first()->role ?? 'member';
+    }
+
+    public function getRoleColor(string $role): string
+    {
+        return match ($role) {
+            'leader' => 'text-green-500',
+            'faculty' => 'text-purple-500',
+            'member' => 'text-blue-500',
+            default => 'text-gray-500',
+        };
+    }
+
     //reverse of the users in club class. pretty much same.
     public function clubs()
     {
