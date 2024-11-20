@@ -142,3 +142,18 @@ We can use the following code for that:
 ```python
 php artisan migrate
 ```
+
+composer require livewire/livewire
+
+php artisan make:livewire ChatComponent
+
+php artisan make:event MessageEvent
+
+php artisan install:broadcasting
+
+php artisan reverb:start
+
+npm run build
+
+18:30
+https://www.youtube.com/watch?v=huLSxcxFRl4
