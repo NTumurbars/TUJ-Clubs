@@ -41,10 +41,10 @@
         @endif
 
         <!-- Authorized Users Section -->
-        @if (Auth::user()->can('view', $club))
+        @if (Auth::user())
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-semibold text-gray-700">Posts</h2>
-                @can('create', $club)
+                @can('createClub', [App\Models\Post::class, $club])
                     <a href="{{ route('posts.create', $club) }}"
                         class="flex items-center px-4 py-2 bg-emerald-500 text-white rounded hover:bg-green-600 transition">
                         <i class="mr-2"></i> Create New Post
@@ -64,8 +64,6 @@
                             <div>
                                 <h2 class="text-lg font-semibold text-gray-900 flex items-center">
                                     {{ $post->user->name }}
-
-                                    {{-- Display Role with Conditional Styling --}}
                                     <span
                                         class="{{ $post->user->getRoleColor($post->user->getRoleInClub($club->id)) }} ml-2 text-sm font-bold capitalize">
                                         {{ $post->user->getRoleInClub($club->id) }}
