@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('profile_photo_link')->nullable();
 
             $table->boolean('is_admin')->default(false); // for now the simplest way to know who is admin. Technically we can create user_admin table for admins but I am not sure if are going to need that.
             

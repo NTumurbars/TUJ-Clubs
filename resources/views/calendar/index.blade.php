@@ -119,7 +119,10 @@
                 dayCounter++;
             }
 
+            
+            
             validDays(); 
+
         }
 
 function validDays() {
