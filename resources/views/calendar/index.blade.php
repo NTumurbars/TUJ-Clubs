@@ -27,11 +27,11 @@
 
             </tr>
             <tr>
-                <td class='weekend' id='1'>27</td>
-                <td id='2'>28</td>
-                <td id='3'>29</td>
-                <td id='4'>30</td>
-                <td id='5'>31</td>
+                <td class='weekend' id='1'></td>
+                <td id='2'></td>
+                <td id='3'></td>
+                <td id='4'></td>
+                <td id='5'></td>
                 <td id='6'>1</td>
                 <td class='weekend' id='7'>2</td>
             </tr>
@@ -86,67 +86,82 @@
     <script>
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const numberOfDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let tmp = 10;
+        let month = 10;  
         let year = 2024;
+        let week = 5;
 
-        
-        
-        
-        function validDays() 
+        function clearCalendar() 
         {
-            for (let i = 1; i < 8; i++) 
+            for (let i = 1; i <= 42; i++) 
             {
-                let day = document.getElementById(i); 
-                if (day.innerText > 8) 
-                {
-                    day.style.color = 'lightgray';
-
-                }
-            }
-
-            for (let i = 42; i > 35; i--) 
-            {
-                let day = document.getElementById(i); 
-                if (day.innerText < 8) 
-                {
-                    day.style.color = 'lightgray';
-                }
+                let dayCell = document.getElementById(i);
+                dayCell.innerText = '';  
+                dayCell.style.color = '';  
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function () 
+        function renderCalendar() 
         {
-            validDays();
-        });
-
-        
-
-        function goBack()
-        {
-            tmp -= 1;
-            if (tmp < 0)
+            clearCalendar(); 
+            let days = numberOfDays[month];
+            if (month === 1 && year % 4 === 0) 
             {
-                year -= 1;
-                tmp += 12;
+                days = 29; //leap year
             }
-            getMonth();
-        }
 
-        function goForward()
-        {
-            tmp += 1;
-            if (tmp > 11)
+            week = new Date(year, month, 1).getDay();  
+    
+            let dayCounter = 1;
+            for (let i = week; i < week + days; i++) 
             {
-                year += 1;
-                tmp -= 12;
+                let dayCell = document.getElementById(i + 1); 
+                dayCell.innerText = dayCounter;
+                dayCounter++;
             }
-            getMonth();
+
+            validDays(); 
         }
 
-        function getMonth()
-        {   
-            document.getElementById('time').innerText = months[tmp] + " " + year;
-        }
+function validDays() {
+    for (let i = 1; i <= week; i++) {
+        let day = document.getElementById(i);
+        day.style.color = 'lightgray';  
+    }
+
+    for (let i = week + numberOfDays[month] + 1; i <= 42; i++) {
+        let day = document.getElementById(i);
+        day.style.color = 'lightgray'; 
+    }
+}
+
+function goBack() {
+    month -= 1;
+    if (month < 0) {
+        month = 11;  
+        year -= 1;
+    }
+    getMonth();
+    renderCalendar();
+}
+
+function goForward() {
+    month += 1;
+    if (month > 11) {
+        month = 0;  
+        year += 1;
+    }
+    getMonth();
+    renderCalendar();
+}
+
+function getMonth() {
+    document.getElementById('time').innerText = months[month] + " " + year;
+    }
+
+        document.addEventListener("DOMContentLoaded", function () {
+        getMonth();
+
+    });
         
     </script>
 </body>

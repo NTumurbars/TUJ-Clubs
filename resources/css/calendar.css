@@ -64,7 +64,14 @@ td:hover {
     background-color: #f1f1f1;
 }
 
+
+
 .weekend
 {
     background-color: rgb(240, 240, 240);
+}
+
+.weekend:hover
+{
+    background-color: rgb(218, 218, 218)
 }
