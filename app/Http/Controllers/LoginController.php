@@ -1,20 +1,73 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
+
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-class GoogleController extends Controller
+class LoginController extends Controller
 {
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
+    public function loginPage()
+    {
+        view('auth.login');
+    }
+
+    public function logout()
+
+    {
+
+        // Logout the user from the application
+
+        Auth::logout();
+
+        session()->invalidate();
+
+        session()->regenerate();
+
+
+        // Invalidate and regenerate the session to ensure no old session data persists
+
+        session()->invalidate();
+
+        session()->regenerate();
+
+
+        // Clear session cookies
+
+        Cookie::queue(Cookie::forget('laravel_session'));
+
+        Cookie::queue(Cookie::forget('laravel_token'));
+
+        Cookie::queue(Cookie::forget('remember_token')); // if using "remember me"
+
+
+        // Redirect to login
+
+        return redirect()
+
+            ->route('login')
+
+            ->with('message', 'You have been logged out.')
+
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+
+            ->header('Pragma', 'no-cache')
+
+            ->header('Expires', '0')
+
+            ->with(['script' => 'window.location.reload();']); // Forces page reload
+
+    }
 
     public function handleGoogleCallback()
     {

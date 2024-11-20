@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ClubController;
 
 use App\Http\Controllers\HomeController; 
 
-use Illuminate\Support\Facades\Auth;
+
 
 
 // Route::get('/', function () {
@@ -27,24 +27,14 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 
 
 
-Route::view('login', 'auth.login')->name('login');
+Route::get('login', [LoginController::class, 'loginPage'])->name('login');
 
 
-Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-Route::post('/logout', function (Request $request) {
-
-    Auth::logout();
+Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 
-    $request->session()->invalidate();
-
-
-    $request->session()->regenerateToken();
-
-
-    return redirect('/login');
-})->name('logout');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
@@ -71,7 +61,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('clubs/{club}', [ClubController::class, 'display'])->name('clubs.display');
 
+   
+
     Route::get('clubs/{club}/edit', [ClubController::class, 'edit'])->name('clubs.edit');
+
+     
 
     Route::post('clubs', [ClubController::class, 'save'])->name('clubs.save');
 
