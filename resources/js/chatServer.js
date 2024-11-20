@@ -13,7 +13,9 @@ io.on("connect", (socket) => {
         console.log(newMessage + " from server");
         io.emit("messageFromServerToAllClients", newMessage);
     });
-}); //Adding events
+});
+
+//Adding events
 
 // require() -> methods used to call the libraries
 // io.on methods activates when some one connects to the server, listens to events

@@ -8,8 +8,8 @@
     @vite(['resources/css/app.css', 'resources/js/navbar.js'])
 </head>
 
-<body class="bg-slate-100 text-slate-900">
-    <nav class="bg-zinc-500">
+<body class="text-[#73EEDC] bg-[#320F23]">
+    <nav class="bg-gray-800">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
 
@@ -27,6 +27,8 @@
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Clubs</a>
                             <a href="#"
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+                            <a href="{{route('chat')}}"
+                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Chats</a>
                         </div>
                     </div>
                 </div>

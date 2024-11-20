@@ -12,14 +12,8 @@ use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Middleware\NoCache;
 
-// Route::get('/', function () {
-//     return view('posts.index');
-// })->name('home');
-
-// Route::get('/register', function () {
-//     return view('auth.register');
-// })->name('register');
 
 
 //home route
@@ -32,19 +26,19 @@ Route::view('login', 'auth.login')->name('login');
 
 Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-Route::post('/logout', function (Request $request) {
+// Route::post('/logout', function (Request $request) {
 
-    Auth::logout();
-
-
-    $request->session()->invalidate();
+//     Auth::logout();
 
 
-    $request->session()->regenerateToken();
+//     $request->session()->invalidate();
 
 
-    return redirect('/login');
-})->name('logout');
+//     $request->session()->regenerateToken();
+
+
+//     return redirect('/login');
+// })->name('logout');
 
 
 
@@ -83,6 +77,9 @@ Route::middleware('auth')->group(function () {
     Route::put('clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
     Route::delete('clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
     
+    Route::get('/chat', function(){
+        return view('chat');
+    })->name('chat');
 
 
 
@@ -102,3 +99,19 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+
+Route::post('/logout', [GoogleController::class, 'logout'])->name('logout');
+
+// Route::middleware([NoCache::class, 'auth'])->group(function () {
+//     Route::view('/', 'home')->name('home');
+//     // Add other routes that require authentication here
+// });
+
+// This would prevent an authorized user from entering the url and forcing their way into the application
+Route::get('login/google', function () {
+    if (Auth::check()) {
+        // If the user is authenticated, redirect them to the home/dashboard page
+        return redirect()->route('home'); // or 'dashboard'
+    }
+    return app(GoogleController::class)->redirectToGoogle();
+})->name('login.google');
