@@ -1,8 +1,4 @@
-{{-- This is the clubs page view --}}
 <x-layout>
-
-
-
     <div class="container">
 
 
@@ -19,10 +15,11 @@
                 <div class="row">
                     @foreach ($userClubs as $club)
                         <div class="col-md-4">
-                            <div class="card mb-3">
+                            <div class="card mb-5">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $club->name }}</h5>
-                                    <p class="card-text">{{ Str::limit($club->bio, 100) }}</p>
+                                    <h3 class="card-title">{{ $club->name }}</h3>
+                                    <p class="card-text">{{ Str::limit($club->bio) }}</p>
+                                    <br>
                                     <a href="{{ route('clubs.display', $club) }}" class="btn btn-primary">View Club</a>
                                 </div>
                             </div>
@@ -30,14 +27,17 @@
                     @endforeach
                 </div>
             @else
-                <p>You are not a member of any clubs. You can browse clubs to find one.</p>
+                <p>You are not a member of any clubs. You can browse clubs to request to join one.</p>
             @endif
 
-            <a href="{{ route('clubs.browse') }}" class="btn btn-secondary mt-4">Browse Clubs</a>
+            <br>
 
-            {{-- Create club button only available for admins --}}
+            <a href="{{ route('clubs.browse') }}" class="btn-primary">Browse Clubs</a>
+
+            <br>
+
             @if (auth()->user()->isAdmin())
-                <a href="{{ route('clubs.create') }}" class="btn btn-success mt-4">Create Club</a>
+                <a href="{{ route('clubs.create') }}" class="btn-primary">Create Club</a>
             @endif
         @else
             <p> <a href="{{ route('login') }}"> Please log in to see your clubs.</a> </p>

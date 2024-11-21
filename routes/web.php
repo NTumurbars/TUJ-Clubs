@@ -1,21 +1,16 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
-
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ClubController;
 
 use App\Http\Controllers\HomeController; 
 
-
-
-
-// Route::get('/', function () {
-//     return view('posts.index');
-// })->name('home');
 
 
 
@@ -74,9 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::put('clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
     Route::delete('clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
     
-    Route::get('/chat', function(){
-        return view('chat');
-    })->name('chat');
+    Route::get('/chat', [ChatController::class, 'chatPage'])->name('chat');
 
 
 
@@ -94,21 +87,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     });
+
+
+    Route::get('/calendar', [CalendarController::class, 'calendarPage'])->name('calendar');
 });
 
 
-Route::post('/logout', [GoogleController::class, 'logout'])->name('logout');
 
-// Route::middleware([NoCache::class, 'auth'])->group(function () {
-//     Route::view('/', 'home')->name('home');
-//     // Add other routes that require authentication here
-// });
-
-// This would prevent an authorized user from entering the url and forcing their way into the application
-Route::get('login/google', function () {
-    if (Auth::check()) {
-        // If the user is authenticated, redirect them to the home/dashboard page
-        return redirect()->route('home'); // or 'dashboard'
-    }
-    return app(GoogleController::class)->redirectToGoogle();
-})->name('login.google');

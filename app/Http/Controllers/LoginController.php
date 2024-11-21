@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cookie;
 
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Cookie;
+
 
 class LoginController extends Controller
 {
@@ -20,7 +20,7 @@ class LoginController extends Controller
 
     public function loginPage()
     {
-        view('auth.login');
+        return view('auth.login');
     }
 
     public function logout()
@@ -78,7 +78,7 @@ class LoginController extends Controller
             //Named Error Bags
             if (!isset($potentialUser->user['hd']) || $potentialUser->user['hd'] !== 'temple.edu') {
                 //there is no other way to logout so I just added this in here to debug the welcome banner message and design
-                Auth::logout();
+        
                 return redirect()
                     ->route('login')
                     ->withErrors(['email' => 'You must use temple account to log in.']);
@@ -108,29 +108,4 @@ class LoginController extends Controller
         }
     }
 
-    public function logout()
-    {
-        // Logout the user from the application
-        Auth::logout();
-        session()->invalidate();
-        session()->regenerate();
-
-        // Invalidate and regenerate the session to ensure no old session data persists
-        session()->invalidate();
-        session()->regenerate();
-
-        // Clear session cookies
-        Cookie::queue(Cookie::forget('laravel_session'));
-        Cookie::queue(Cookie::forget('laravel_token'));
-        Cookie::queue(Cookie::forget('remember_token')); // if using "remember me"
-
-        // Redirect to login
-        return redirect()
-            ->route('login')
-            ->with('message', 'You have been logged out.')
-            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-            ->header('Pragma', 'no-cache')
-            ->header('Expires', '0')
-            ->with(['script' => 'window.location.reload();']); // Forces page reload
-    }
 }

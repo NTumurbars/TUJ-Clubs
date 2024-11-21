@@ -13,7 +13,7 @@
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">
                         <div class="p-6 flex-1">
                             <h2 class="text-2xl font-semibold mb-2">{{ $club->name }}</h2>
-                            <p class="text-zinc-700 mb-4">{{ Str::limit($club->bio) }}</p>
+                            <p class="text-zinc-700 mb-4">{{ $club->bio }}</p>
                             <p class="text-zinc-500 mb-4">{{ $club->memberships_count }} Members</p>
                         </div>
                         @auth

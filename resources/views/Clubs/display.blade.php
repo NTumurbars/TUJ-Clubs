@@ -1,6 +1,9 @@
 <x-layout>
     <div class="container mx-auto px-4 py-8">
-        <!-- Club Information Section -->
+        {{-- club internal area --}}
+
+
+
         <div class="bg-gray-800 shadow-md rounded-lg p-6 mb-6">
             <div class="flex flex-row justify-between items-center">
                 <div>
@@ -10,43 +13,82 @@
                             class="font-medium">{{ $club->memberships_count }}</span>
                     </p>
                 </div>
-                <div class="flex space-x-2">
-                    @can('update', $club)
-                        <a href="{{ route('clubs.edit', $club) }}"
-                            class="flex items-center px-3 py-2 bg-indigo-500 text-white rounded hover:bg-blue-600 transition">
-                            <i class="mr-2"></i> Edit Club Details
-                        </a>
-                    @endcan
 
-                    @can('delete', $club)
-                        <form action="{{ route('clubs.destroy', $club) }}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to delete this club?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="flex items-center px-3 py-2 bg-rose-500 text-white rounded hover:bg-red-600 transition">
-                                <i class="mr-2"></i> Delete Club
-                            </button>
-                        </form>
-                    @endcan
+
+                {{-- we first need to check if they should see the button thats why canany is here --}}
+                <div class="relative">
+                    @canany(['update', 'delete', 'viewMembers', 'viewMemberRequests'], $club)
+                        <button id="options-button"
+                            class="flex items-center px-4 py-2 bg-sky-700 text-gray-200 rounded hover:bg-sky-900 focus:outline-none">
+                            <span>Options</span>
+                        </button>
+
+                        <ul id="options-dropdown"
+                            class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg hidden z-20">
+                            @can('viewMembers', $club)
+                                <li>
+                                    <a href="{{ route('clubs.members', $club) }}"
+                                        class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
+                                        Members
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('viewMemberRequests', $club)
+                                <li>
+                                    <a href="{{ route('clubs.memberRequests', $club) }}"
+                                        class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
+                                        New Member Requests
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('update', $club)
+                                <li>
+                                    <a href="{{ route('clubs.edit', $club) }}"
+                                        class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
+                                        Edit Club Details
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('delete', $club)
+                                <li>
+                                    <form action="{{ route('clubs.destroy', $club) }}" method="POST"
+                                        onsubmit="return confirm('Do you really want to delete this club?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="block w-full text-left px-4 py-3 text-gray-800 hover:bg-gray-100">
+                                            Delete Club
+                                        </button>
+                                    </form>
+                                </li>
+                            @endcan
+                        </ul>
+                    @endcanany
                 </div>
+
             </div>
         </div>
 
-        <!-- Success Message -->
+
+
+
+
+
         @if (session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6" role="alert">
                 <span class="block sm:inline">{{ session('success') }}</span>
             </div>
         @endif
 
-        <!-- Authorized Users Section -->
+        {{-- Only Club member section --}}
         @if (Auth::user())
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-semibold text-gray-700">Posts</h2>
                 @can('createClub', [App\Models\Post::class, $club])
-                    <a href="{{ route('posts.create', $club) }}"
-                        class="flex items-center px-4 py-2 bg-emerald-500 text-white rounded hover:bg-green-600 transition">
+                    <a href="{{ route('posts.create', $club) }}" class="btn btn-create">
                         <i class="mr-2"></i> Create New Post
                     </a>
                 @endcan
@@ -54,55 +96,52 @@
 
             <div class="space-y-6">
                 @forelse ($club->posts as $post)
-                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6">
-                        <div class="flex items-center mb-4">
-                            {{-- will add club avatar in club db once I figure out how to save picture --}}
-                            <img class="w-12 h-12 rounded-full object-cover mr-4"
-                                src="{{ $post->user->profile_photo_link ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa176-tAid4pc1T8-sMsYnxJ_QFyhXAahbOA&s' }}"
-                                alt="user photo">
+                    <div class="card">
+                        {{-- the card header contains profile picture name and edit and delete button --}}
+                        <div class="card-header">
+                            <div class="flex items-center">
+                                {{-- the profile pciture --}}
+                                <img class="w-12 h-12 rounded-full object-cover mr-4"
+                                    src="{{ $post->user->profile_photo_link ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa176-tAid4pc1T8-sMsYnxJ_QFyhXAahbOA&s' }}"
+                                    alt="user photo">
 
-                            <div>
-                                <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                                    {{ $post->user->name }}
-                                    <span
-                                        class="{{ $post->user->getRoleColor($post->user->getRoleInClub($club->id)) }} ml-2 text-sm font-bold capitalize">
-                                        {{ $post->user->getRoleInClub($club->id) }}
-                                    </span>
-                                </h2>
-                                <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                                {{-- member information --}}
+                                <div>
+                                    <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+                                        {{ $post->user->name }}
+                                        <span
+                                            class="{{ $post->user->getRoleColor($post->user->getRoleInClub($club->id)) }} ml-2 text-sm font-bold capitalize">
+                                            {{ $post->user->getRoleInClub($club->id) }}
+                                        </span>
+                                    </h2>
+                                    <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mb-4">
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $post->title }}</h3>
-                            <p class="text-gray-700">{{ $post->content }}</p>
-                        </div>
-
-                        <div class="mt-4 flex justify-between items-center">
-                            <span class="text-sm text-gray-500">
-                                Posted by <span class="font-medium">{{ $post->user->name }}</span> on
-                                {{ $post->created_at->format('M d, Y') }}
-                            </span>
                             <div class="flex space-x-2">
                                 @can('update', $post)
-                                    <a href="{{ route('posts.edit', [$club, $post]) }}"
-                                        class="flex items-center px-3 py-1 bg-indigo-500 text-white rounded hover:bg-blue-600 transition text-sm">
+                                    <a href="{{ route('posts.edit', [$club, $post]) }}" class="btn btn-edit">
                                         <i class="mr-1"></i> Edit
                                     </a>
                                 @endcan
 
                                 @can('delete', $post)
                                     <form action="{{ route('posts.destroy', [$club, $post]) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                        onsubmit="return confirm('Do you really want to delete this post?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="flex items-center px-3 py-1 bg-rose-500 text-white rounded hover:bg-red-600 transition text-sm">
+                                        <button type="submit" class="btn btn-delete">
                                             <i class="mr-1"></i> Delete
                                         </button>
                                     </form>
                                 @endcan
                             </div>
+                        </div>
+
+
+                        <div class="mb-4">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $post->title }}</h3>
+                            <p class="text-gray-700">{{ $post->content }}</p>
                         </div>
 
                     </div>
@@ -111,7 +150,7 @@
                 @endforelse
             </div>
         @else
-            <!-- Non-Members Section -->
+            {{-- For non members the club will show the request to join --}}
             <div class="bg-white shadow rounded-lg p-6 text-center">
                 <p class="text-gray-700">You are not a member of this club.</p>
                 @auth
@@ -126,4 +165,6 @@
             </div>
         @endif
     </div>
+
+    @vite(['resources/js/app.js', 'resources/js/dropdown.js'])
 </x-layout>
