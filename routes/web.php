@@ -17,9 +17,6 @@ use App\Http\Controllers\HomeController;
 //     return view('posts.index');
 // })->name('home');
 
-// Route::get('/register', function () {
-//     return view('auth.register');
-// })->name('register');
 
 
 //home route
@@ -77,6 +74,9 @@ Route::middleware('auth')->group(function () {
     Route::put('clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
     Route::delete('clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
     
+    Route::get('/chat', function(){
+        return view('chat');
+    })->name('chat');
 
 
 
@@ -96,3 +96,19 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+
+Route::post('/logout', [GoogleController::class, 'logout'])->name('logout');
+
+// Route::middleware([NoCache::class, 'auth'])->group(function () {
+//     Route::view('/', 'home')->name('home');
+//     // Add other routes that require authentication here
+// });
+
+// This would prevent an authorized user from entering the url and forcing their way into the application
+Route::get('login/google', function () {
+    if (Auth::check()) {
+        // If the user is authenticated, redirect them to the home/dashboard page
+        return redirect()->route('home'); // or 'dashboard'
+    }
+    return app(GoogleController::class)->redirectToGoogle();
+})->name('login.google');
