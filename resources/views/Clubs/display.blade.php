@@ -17,7 +17,7 @@
 
                 {{-- we first need to check if they should see the button thats why canany is here --}}
                 <div class="relative">
-                    @canany(['update', 'delete', 'viewMembers', 'viewMemberRequests'], $club)
+                    @canany(['update', 'delete'], $club)
                         <button id="options-button"
                             class="flex items-center px-4 py-2 bg-sky-700 text-gray-200 rounded hover:bg-sky-900 focus:outline-none">
                             <span>Options</span>
@@ -27,7 +27,7 @@
                             class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg hidden z-20">
                             @can('view', $club)
                                 <li>
-                                    <a href="{{ route('clubs.members', $club) }}"
+                                    <a href="{{ route('members', $club) }}"
                                         class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
                                         Members
                                     </a>
@@ -153,7 +153,7 @@
             <div class="bg-white shadow rounded-lg p-6 text-center">
                 <p class="text-gray-700">You are not a member of this club.</p>
                 @auth
-                    <form action="{{ route('clubs.requestToJoin', $club) }}" method="POST" class="mt-4">
+                    <form action="{{ route('clubs.requestToJoin', $club) }}" method="Post" class="mt-4">
                         @csrf
                         <button type="submit"
                             class="flex items-center justify-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">

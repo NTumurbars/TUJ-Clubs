@@ -5,7 +5,7 @@ use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ClubController;
 
@@ -35,7 +35,12 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('clubs', [ClubController::class, 'main'])->name('clubs.main');
 
 Route::middleware('auth')->group(function () {
+    
+    //Chat routes
+    Route::get('/chat', [ChatController::class, 'chatPage'])->name('chat');
 
+    //Calendar
+      Route::get('/calendar', [CalendarController::class, 'calendarPage'])->name('calendar');
 
     //Profile routes
 
@@ -46,51 +51,52 @@ Route::middleware('auth')->group(function () {
 
     //Club routes. Fucking hell it took me almost 2 hours to figure that there was a wrong ordering in clubs/create. Fuuuuck if clubs/{create} comes before clubs/create it tries to find clubs with create id.
     
-
     Route::get('clubs/browse', [ClubController::class, 'browse'])->name('clubs.browse');
 
     Route::get('clubs/create', [ClubController::class, 'create'])->name('clubs.create');
 
     Route::get('clubs/{club}', [ClubController::class, 'display'])->name('clubs.display');
 
-   
-
     Route::get('clubs/{club}/edit', [ClubController::class, 'edit'])->name('clubs.edit');
-     Route::get('clubs/{club}/members', [ClubController::class, 'members'])->name('clubs.members');
-
-     
 
     Route::post('clubs', [ClubController::class, 'save'])->name('clubs.save');
-
-
-
-    Route::post('clubs/{club}/request-to-join', [ClubController::class, 'requestToJoin'])->name('clubs.requestToJoin');
-
        
     Route::put('clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
+
     Route::delete('clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
+
+    Route::post('clubs/{club}/request-to-join', [ClubController::class, 'requestToJoin'])->name('clubs.requestToJoin');
     
-    Route::get('/chat', [ChatController::class, 'chatPage'])->name('chat');
-
-
-
-
-
-    //posts that are inside the club
+   
+    //things that are in the club
     Route::prefix('clubs/{club}')->group(function () {
+
+
+        //posts
         Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
         Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 
-        
         Route::post('posts', [PostController::class, 'save'])->name('posts.save');
        
         Route::put('posts/{post}', [PostController::class, 'update'])->name('posts.update');
         Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
+
+
+        //members
+        Route::get('members', [MembershipController::class, 'members'])->name('members');
+        Route::get('members/{membership}/edit', [MembershipController::class, 'edit'])->name('members.edit');
+
+        Route::put('members/{membership}', [MembershipController::class, 'update'])->name('members.update');
+        Route::delete('members/{membership}', [MembershipController::class, 'removeMember'])->name('members.remove');
+
+        //membership request
+        Route::get('memberRequests', [MembershipController::class, 'memberRequests'])->name('memberRequests');
+
     });
 
 
-    Route::get('/calendar', [CalendarController::class, 'calendarPage'])->name('calendar');
+  
 });
 
 
