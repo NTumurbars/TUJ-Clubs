@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Post;
 use App\Models\User;
-use App\Models\club;
+use App\Models\Club;
 use Illuminate\Auth\Access\Response;
 
 class PostPolicy
@@ -31,7 +31,8 @@ class PostPolicy
         return $user->isAdmin();
     }
 
-    public function createGlobalClub(User $user, Club $club)
+     public function createGlobalClub(User $user, Club $club)
+    
     {
         // Club Leaders and Faculty can create global posts on behalf of their club
         

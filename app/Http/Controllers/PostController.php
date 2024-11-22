@@ -22,14 +22,12 @@ class PostController extends Controller
 
     public function save(Request $request, Club $club)
     {
-        $isGlobal = $request->has('is_global');
-        Log::info('Is Global:', ['is_global' => $isGlobal]);
+        $isGlobal = $request->input('is_global');
     
         if ($isGlobal) {
-            Log::info('Authorizing with createGlobalClub policy.');
             $this->authorize('createGlobalClub', [Post::class, $club]);
         } else {
-            Log::info('Authorizing with createClub policy.');
+        
             $this->authorize('createClub', [Post::class, $club]);
         }
 
@@ -38,18 +36,22 @@ class PostController extends Controller
             'content' => 'required|string',
             'is_global' => 'boolean',
         ]);
-        Log::info('Validation passed.');
+
+
 
         $post = new Post();
-        $post->title = $validated['title'];
-        $post->content = $validated['content'];
-        $post->is_global = $request->has('is_global') ? true : false;
+
         $post->user_id = Auth::id();
         $post->club_id = $club->id;
-        $post->save();
-         Log::info('Post saved successfully.', ['post_id' => $post->id]);
 
-        return redirect()->route('clubs.display', $club)->with('success', 'Post created successfully.');
+        $post->is_global = $request->has('is_global') ? true : false;
+        $post->title = $validated['title'];
+        $post->content = $validated['content'];
+    
+    
+        $post->save();
+
+        return redirect()->route('clubs.display', $club)->with('success', 'Your post has created successfully.');
     }
 
     public function edit(Club $club, Post $post)
@@ -67,7 +69,7 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'is_global' => 'sometimes|boolean',
+            'is_global' => 'boolean',
         ]);
 
         $post->title = $validated['title'];
@@ -75,7 +77,7 @@ class PostController extends Controller
         $post->is_global = $request->has('is_global') ? true : false;
         $post->save();
 
-        return redirect()->route('clubs.display', $club)->with('success', 'Post updated successfully.');
+        return redirect()->route('clubs.display', $club)->with('success', 'Your Post updated successfully.');
     }
 
     public function destroy(Club $club, Post $post)
@@ -84,6 +86,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('clubs.display', $club)->with('success', 'Post deleted successfully.');
+        return redirect()->route('clubs.display', $club)->with('success', 'Your Post deleted successfully.');
     }
 }

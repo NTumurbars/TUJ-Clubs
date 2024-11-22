@@ -21,7 +21,7 @@
 
             <div class="space-y-6">
                 @forelse ($globalPosts as $post)
-                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6">
+                    <div class="card">
                         <div class="flex items-center mb-4">
                             {{-- will add club avatar in club db once I figure out how to save picture --}}
                             <img class="w-12 h-12 rounded-full object-cover mr-4"

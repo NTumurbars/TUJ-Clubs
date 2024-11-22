@@ -1,18 +1,16 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ClubController;
 
 use App\Http\Controllers\HomeController; 
 
-use Illuminate\Support\Facades\Auth;
-
-use App\Http\Middleware\NoCache;
 
 
 
@@ -21,25 +19,14 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 
 
 
-Route::view('login', 'auth.login')->name('login');
-Route::view('calendar', 'calendar.index')->name('calendar');
+Route::get('login', [LoginController::class, 'loginPage'])->name('login');
 
 
-Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-// Route::post('/logout', function (Request $request) {
-
-//     Auth::logout();
+Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 
-//     $request->session()->invalidate();
-
-
-//     $request->session()->regenerateToken();
-
-
-//     return redirect('/login');
-// })->name('logout');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
@@ -66,7 +53,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('clubs/{club}', [ClubController::class, 'display'])->name('clubs.display');
 
+   
+
     Route::get('clubs/{club}/edit', [ClubController::class, 'edit'])->name('clubs.edit');
+
+     
 
     Route::post('clubs', [ClubController::class, 'save'])->name('clubs.save');
 
@@ -78,9 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::put('clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
     Route::delete('clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
     
-    Route::get('/chat', function(){
-        return view('chat');
-    })->name('chat');
+    Route::get('/chat', [ChatController::class, 'chatPage'])->name('chat');
 
 
 
@@ -98,21 +87,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     });
+
+
+    Route::get('/calendar', [CalendarController::class, 'calendarPage'])->name('calendar');
 });
 
 
-Route::post('/logout', [GoogleController::class, 'logout'])->name('logout');
 
-// Route::middleware([NoCache::class, 'auth'])->group(function () {
-//     Route::view('/', 'home')->name('home');
-//     // Add other routes that require authentication here
-// });
-
-// This would prevent an authorized user from entering the url and forcing their way into the application
-Route::get('login/google', function () {
-    if (Auth::check()) {
-        // If the user is authenticated, redirect them to the home/dashboard page
-        return redirect()->route('home'); // or 'dashboard'
-    }
-    return app(GoogleController::class)->redirectToGoogle();
-})->name('login.google');

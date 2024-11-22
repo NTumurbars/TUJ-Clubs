@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Laravel App') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/navbar.js'])
+    <script src="//unpkg.com/alpinejs" defer></script>
+    @vite(['resources/css/app.css', 'resources/js/calendar.js', 'resources/js/navbar.js'])
+
 </head>
 
-<body class="text-[#73EEDC] bg-[#320F23]">
-    <nav class="bg-gray-800">
+<body>
+    <nav>
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
 
@@ -20,15 +22,15 @@
                         alt="TUJ Logo">
                     <div class="ml-6">
                         <div class="flex space-x-4">
+
                             <a href="{{ route('home') }}"
-                                class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                                aria-current="page">Home</a>
+                                class="{{ request()->routeIs('home') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">Home</a>
                             <a href="{{ route('clubs.main') }}"
-                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Clubs</a>
+                                class="{{ request()->routeIs('clubs.main') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">Clubs</a>
                             <a href="{{ route('calendar') }}"
-                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
-                            <a href="{{route('chat')}}"
-                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Chats</a>
+                                class="{{ request()->routeIs('calendar') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
+                            <a href="{{ route('chat') }}"
+                                class="{{ request()->routeIs('chat') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">Chats</a>
                         </div>
                     </div>
                 </div>
@@ -61,12 +63,10 @@
                                 <a href="{{ route('profile.show') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your
                                     Profile</a>
-                                <form method="post" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                        role="menuitem">Log out</button>
-                                </form>
+                                <a href="{{ route('logout') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    role="menuitem">Logout</a>
+
                             </div>
                         </div>
                     @endauth
@@ -75,7 +75,7 @@
         </div>
     </nav>
 
-    <main class="py-8 px-4 mx-auto max-w-screen-lg">
+    <main class="py-4 mx-auto max-w-screen-lg">
 
 
 

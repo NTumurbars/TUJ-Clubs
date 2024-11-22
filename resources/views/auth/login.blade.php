@@ -15,7 +15,7 @@
         @endif
 
         <a href="{{ route('login.google') }}" class="btn btn-danger">
-            <button type="button" data-twe-ripple-init data-twe-ripple-color="light" 
+            <button type="button" data-twe-ripple-init data-twe-ripple-color="light"
                 class="mb-2 inline-block rounded-full bg-[#04030F] p-3 text-xs font-medium uppercase leading-normal text-[#73C2BE] shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
                 <span class="[&>svg]:h-10 [&>svg]:w-10">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
