@@ -6,7 +6,7 @@
         @endforeach
     </ul>
     <form wire:submit="submitMessage">
-         <input wire:model="text" />
+         <input wire:model="message" />
         <button type="submit">Send</button>
     </form>
 </div>
