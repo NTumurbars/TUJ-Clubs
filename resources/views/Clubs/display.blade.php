@@ -25,7 +25,7 @@
 
                         <ul id="options-dropdown"
                             class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg hidden z-20">
-                            @can('viewMembers', $club)
+                            @can('view', $club)
                                 <li>
                                     <a href="{{ route('clubs.members', $club) }}"
                                         class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
@@ -34,10 +34,9 @@
                                 </li>
                             @endcan
 
-                            @can('viewMemberRequests', $club)
+                            @can('view', $club)
                                 <li>
-                                    <a href="{{ route('clubs.memberRequests', $club) }}"
-                                        class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
+                                    <a href="#" class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
                                         New Member Requests
                                     </a>
                                 </li>

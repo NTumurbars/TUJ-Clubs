@@ -17,7 +17,7 @@ class ChatComponent extends Component
     {
         $messages = Message::all();
         foreach ($messages as $message) {
-            $this->convo[] = ['username' => $message->user->name, 'message' => $message->message];
+            $this->convo[] = ['username' => $message->user->name, 'message' => $message->message, 'created_at' => $message->created_at, 'profile_photo_link' =>$message->user->profile_photo_link];
         }
     }
 
@@ -31,11 +31,11 @@ class ChatComponent extends Component
         $this->message = '';
     }
 
-    #[On('echo:out-channel,MessageEvent')]
-    public function litenForMessage($data)
-    {
-        $this->convo[] = ['username' => $data[username], 'message' => $data[message]];
-    }
+    // #[On('echo:out-channel,MessageEvent')]
+    // public function litenForMessage($data)
+    // {
+    //     $this->convo[] = ['username' => $data[name], 'message' => $data[message]];
+    // }
     public function render()
     {
         return view('chat.chat-component');

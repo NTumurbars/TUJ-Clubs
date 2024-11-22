@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
    
 
     Route::get('clubs/{club}/edit', [ClubController::class, 'edit'])->name('clubs.edit');
+     Route::get('clubs/{club}/members', [ClubController::class, 'members'])->name('clubs.members');
 
      
 

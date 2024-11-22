@@ -69,6 +69,13 @@ class ClubController extends Controller
         return view('clubs.browse', compact('clubs'));
     }
 
+    public function members(Club $club)
+    {
+
+        //I want to only browse clubs where the user is not part of since the joined clubs will be displayed anyway
+        return view('clubs.members', compact('club'));
+    }
+
 
     public function display(Club $club)
     {
