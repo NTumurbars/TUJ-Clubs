@@ -64,21 +64,58 @@
             </tr>
             <tr>
                 <td class='weekend' id='29'>24</td>
-                <td id='30'>25</td>
-                <td id='31'>26</td>
-                <td id='32'>27</td>
-                <td id='33'>28</td>
-                <td id='34'>29</td>
-                <td class='weekend' id='35'>30</td>
+                <td id='30'>25
+                    <br>
+                    <span class="label" id='30label1'></span>
+                    <span class="label" id='30label2'></span>
+                    <span class="label" id='30label3'></span>
+                    <span class="label" id='30label4'></span>
+                </td>
+                <td id='31'>26
+                    <br>
+                    <span class="label" id='31label1'>Futsal Practice</span>
+                    <span class="label" id='31label2'></span>
+                    <span class="label" id='31label3'></span>
+                    <span class="label" id='31label4'></span>
+                </td>
+                <td id='32'>27
+                    <br>
+                    <span class="label" id='32label1'></span>
+                    <span class="label" id='32label2'></span>
+                    <span class="label" id='32label3'></span>
+                    <span class="label" id='32label4'></span>
+                </td>
+                    
+                <td id='33'>28
+                    <br>
+                    <span class="label" id='33label1'>Labor Thanksgiving</span>
+                    <span class="label" id='33label2'>Futsal Practice</span>
+                    <span class="label" id='33label3'>Coding Club Meeting</span>
+                    <span class="label" id='33label4'>Car Club Meeting</span>
+                </td>
+                <td id='34'>29
+                    <br>
+                    <span class="label" id='34label1'></span>
+                    <span class="label" id='34label2'></span>
+                    <span class="label" id='34label3'></span>
+                    <span class="label" id='34label4'></span>   
+                </td>
+                <td class='weekend' id='35'>30
+                    <br>
+                    <span class="label" id='35label1'></span>
+                    <span class="label" id='35label2'></span>
+                    <span class="label" id='35label3'></span>
+                    <span class="label" id='35label4'></span>   
+                </td>
             </tr>
             <tr>
-                <td class='weekend' id='36'>1</td>
-                <td id='37'>2</td>
-                <td id='38'>3</td>
-                <td id='39'>4</td>
-                <td id='40'>5</td>
-                <td id='41'>6</td>
-                <td class='weekend' id='42'>7</td>
+                <td class='weekend' id='36'></td>
+                <td id='37'></td>
+                <td id='38'></td>
+                <td id='39'></td>
+                <td id='40'></td>
+                <td id='41'></td>
+                <td class='weekend' id='42'></td>
             </tr>
         </table>
     </div>
