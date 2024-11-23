@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ClubController;
-use App\Http\Controllers\ChatController;
+
 use App\Http\Controllers\HomeController; 
 
 

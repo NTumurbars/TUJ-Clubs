@@ -10,8 +10,8 @@
 
 </head>
 
-<body class="text-white bg-gradient-to-r from-red-800 via-pink-700 to-red-600">
-    <nav class="bg-gradient-to-r from-red-600 to-pink-600 shadow-lg backdrop-blur-md">
+<body class="text-white bg-gradient-to-r from-[#a90e0e] via-[#290000] to-black">
+    <nav class="bg-gradient-to-r from-[#7a0000] via-[#290000] to-black shadow-lg backdrop-blur-md">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
 
@@ -61,7 +61,7 @@
                                 tabindex="-1">
                                 <a href="{{ route('profile.show') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100" role="menuitem">Your Profile</a>
-                                <form method="post" action="{{ route('logout') }}">
+                                <form method="get" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
                                         class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"

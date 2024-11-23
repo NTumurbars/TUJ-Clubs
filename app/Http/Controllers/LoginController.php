@@ -49,10 +49,9 @@ class LoginController extends Controller
 
         Cookie::queue(Cookie::forget('laravel_token'));
 
-        Cookie::queue(Cookie::forget('remember_token')); // if using "remember me"
+        Cookie::queue(Cookie::forget('remember_token'));
 
 
-        // Redirect to login
 
         return redirect()
 
