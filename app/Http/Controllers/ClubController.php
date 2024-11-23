@@ -6,6 +6,7 @@ use App\Models\Club;
 use App\Models\ClubMembership;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\JoinForm;
 
 class ClubController extends Controller
 {
@@ -47,6 +48,11 @@ class ClubController extends Controller
         ]);
 
         $club = Club::create($validated);
+
+        $club->joinForm()->create([
+            'title' => 'Join ' . $club->name,
+            'question' => 'Why do you want to join us?',
+        ]);
 
         return redirect()->route('clubs.main')->with('success', 'Club "' . $club->name . '" created successfully.');
     }
@@ -117,6 +123,14 @@ class ClubController extends Controller
         $club->delete();
 
         return redirect()->route('clubs.main')->with('success', 'Club deleted successfully.');
+    }
+
+
+
+    //a way to get the joinform of the club
+    public function joinForm()
+    {
+        return $this->hasOne(JoinForm::class);
     }
 
     //This will be implemented with the form later. 

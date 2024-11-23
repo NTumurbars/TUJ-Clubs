@@ -6,7 +6,7 @@ use App\Models\ClubMembership;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class clubMembershipPolicy
+class ClubMembershipPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -110,7 +110,14 @@ class clubMembershipPolicy
      */
     public function restore(User $user, ClubMembership $clubMembership): bool
     {
-        //
+        if ($user->is_admin) 
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -118,6 +125,13 @@ class clubMembershipPolicy
      */
     public function forceDelete(User $user, ClubMembership $clubMembership): bool
     {
-        //
+      if ($user->is_admin) 
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
     }
 }

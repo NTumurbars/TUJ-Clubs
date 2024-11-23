@@ -69,43 +69,29 @@ return new class extends Migration
         //We will need form table, form questions table and form response table.
         //Or we can have a unified form for each clubs. They will have a big text area where the club leader can change the text. And also a one big text area where the answer can go
         //in here form table and form respone table only. I will create the tables in this way for now
-        Schema::create('forms', function (Blueprint $table) {
+        Schema::create('join_forms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('club_id')->constrained('clubs')->onDelete('cascade');
             $table->text('title')->nullable();
             $table->text('question')->nullable();
             $table->timestamps();
 
-            //we will want 1 form per club
-            $table->unique(['club_id']);
+            // 1 join form per club
+            $table->unique('club_id');
         });
 
-        Schema::create('form_responses', function (Blueprint $table) {
+        Schema::create('join_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('club_form_id')->constrained('forms')->onDelete('cascade');
+            $table->foreignId('join_form_id')->constrained('join_forms')->onDelete('cascade');
             $table->text('answer')->nullable();
-            $table->timestamps();
-            
-            //we might need to think about how we handle if a student fills out the form again. I will put this as unique for now.
-            $table->unique(['user_id', 'club_form_id']);
-        });
-
-        //I have separated club ruqests from the form responses just in case if we use use the form in other things than club requests
-    
-        Schema::create('club_requests', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('form_response_id')->constrained('form_responses')->onDelete('cascade');
-
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignId('responder_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamp('requested_at')->useCurrent();
             $table->timestamp('responded_at')->nullable();
             $table->timestamps();
 
-            $table->unique(['form_response_id']);
         });
-
 
         //defualt stuffs we can possibly remove them
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -122,6 +108,13 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->text("message");
+            $table->timestamps();
+        });
     }
 
     /**
@@ -133,10 +126,10 @@ return new class extends Migration
         Schema::dropIfExists('clubs');
         Schema::dropIfExists('club_memberships');
         Schema::dropIfExists('posts');
-        Schema::dropIfExists('form');
-        Schema::dropIfExists('form_responses');
-        Schema::dropIfExists('club_requests');
+        Schema::dropIfExists('join_form');
+        Schema::dropIfExists('join_requests');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('messages');
     }
 };

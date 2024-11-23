@@ -34,15 +34,20 @@
                                 </li>
                             @endcan
 
-                            @can('view', $club)
+                            @can('update', $club)
                                 <li>
-                                    <a href="#" class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
+                                    <a href="{{ route('requests.main', $club) }}"
+                                        class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
                                         New Member Requests
                                     </a>
                                 </li>
-                            @endcan
+                                <li>
+                                    <a href="{{ route('join-form.edit', $club) }}"
+                                        class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
+                                        Edit Request Form
+                                    </a>
+                                </li>
 
-                            @can('update', $club)
                                 <li>
                                     <a href="{{ route('clubs.edit', $club) }}"
                                         class="block px-4 py-3 text-gray-800 hover:bg-gray-100">
@@ -77,8 +82,8 @@
 
 
         @if (session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6" role="alert">
-                <span class="block sm:inline">{{ session('success') }}</span>
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
         @endif
 

@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\JoinFormController;
+use App\Http\Controllers\JoinRequestController;
 
 use App\Http\Controllers\HomeController; 
 
@@ -92,6 +94,32 @@ Route::middleware('auth')->group(function () {
 
         //membership request
         Route::get('memberRequests', [MembershipController::class, 'memberRequests'])->name('memberRequests');
+
+
+
+
+        ///New member join for and requeests
+
+        //the form
+
+        Route::get('join-form', [JoinFormController::class, 'display'])->name('join-form.display');
+
+        Route::get('join-form/edit', [JoinFormController::class, 'edit'])->name('join-form.edit');
+
+        //change join form
+        Route::put('join-form', [JoinFormController::class, 'update'])->name('join-form.update');
+
+        // save
+        Route::post('join-form', [JoinRequestController::class, 'save'])->name('requests.save');
+
+        Route::get('requests', [JoinRequestController::class, 'main'])->name('requests.main');
+
+        // approve route
+        Route::post('requests/{request}/approve', [JoinRequestController::class, 'approve'])->name('requests.approve');
+
+        // reject route
+        Route::post('requests/{request}/reject', [JoinRequestController::class, 'reject'])->name('requests.reject');
+
 
     });
 

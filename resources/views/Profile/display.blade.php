@@ -7,7 +7,7 @@
 
                     <!-- Success Message -->
                     @if (session('success'))
-                        <div class="mt-2 mb-6 p-2 bg-green-500 text-white rounded">
+                        <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
                     @endif
