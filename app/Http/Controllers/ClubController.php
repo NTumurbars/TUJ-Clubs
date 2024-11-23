@@ -13,11 +13,15 @@ class ClubController extends Controller
 
     public function main()
     {
-        $clubs = Club::withCount('memberships')->get();
+        $userClubs = collect(); 
+        
+        if(Auth::check())
+        {
+            $userClubs = Auth::user()->clubs;
+        }
+        
 
-        $userClubs = Auth::check() ? Auth::user()->clubs : collect();
-
-        return view('clubs.main', compact('clubs', 'userClubs'));
+        return view('clubs.main', compact( 'userClubs'));
     }
     
 
@@ -51,7 +55,11 @@ class ClubController extends Controller
     {
 
         //I want to only browse clubs where the user is not part of since the joined clubs will be displayed anyway
-        $userClubIds = Auth::check() ? Auth::user()->clubs->pluck('id')->toArray() : [];
+        $userClubIds = [];
+        if (Auth::check()) {
+            $userClubIds = Auth::user()->clubs->pluck('id')->toArray(); // Need to have the ids in an array not jus the club object like in the main
+        }
+        
 
         $clubs = Club::withCount('memberships')
             ->with('users')
@@ -65,7 +73,7 @@ class ClubController extends Controller
     public function display(Club $club)
     {
         $this->authorize('view', $club);
-
+        //adding posts and memberships to the club object
         $club->load( 'posts');
         $club->loadCount('memberships');
 

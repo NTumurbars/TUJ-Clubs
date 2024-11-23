@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Laravel App') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/navbar.js'])
+    <script src="//unpkg.com/alpinejs" defer></script>
+    @vite(['resources/css/app.css', 'resources/js/calendar.js', 'resources/js/navbar.js'])
+
 </head>
 
 <body class="text-white bg-gradient-to-r from-red-800 via-pink-700 to-red-600">
@@ -20,6 +22,7 @@
                         alt="TUJ Logo">
                     <div class="ml-6">
                         <div class="flex space-x-4">
+
                             <a href="{{ route('home') }}"
                                 class="rounded-md bg-transparent px-3 py-2 text-sm font-medium text-white hover:text-pink-300 transition duration-200">Home</a>
                             <a href="{{ route('clubs.main') }}"
