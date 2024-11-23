@@ -1,67 +1,51 @@
-<div>
-    <nav class="bg-gray-800">
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center justify-between">
-
-                <!-- Logo and Main Navigation Links -->
-                <div class="flex items-center">
-                    <div class="ml-6">
-                        <h2>{{ $user->name }}</h2>
-                    </div>
-                </div>
-
-                <!-- Authentication Links -->
-                <div class="flex items-center pr-2">
-                    <!-- Profile Dropdown for Authenticated Users -->
-                    <div class="relative ml-3">
-                        <button type="button"
-                            class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                            id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                            <span class="sr-only">Open user menu</span>
-                            <img class="h-14 w-14 rounded-full"
-                                src="{{ $user->profile_photo_link ?? 'https://www.google.com/imgres?q=temple%20owl%20icon&imgurl=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Ftemple-owls-logo.png&imgrefurl=https%3A%2F%2Fbrandslogos.com%2Ft%2Ftemple-owls-logo%2F&docid=9LD6o8DoD5nAYM&tbnid=9LX3xPPZImnTwM&vet=12ahUKEwjgj76yvdiJAxX1a_UHHXrHLtQQM3oECDAQAA..i&w=1280&h=1280&hcb=2&ved=2ahUKEwjgj76yvdiJAxX1a_UHHXrHLtQQM3oECDAQAA' }}"
-                                alt="User profile">
-                        </button>
-
-                        <!-- Dropdown Menu -->
-                        <div class="hidden absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                            tabindex="-1">
-                            <a href="{{ route('profile.show') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your
-                                Profile</a>
-                        </div>
-                    </div>
-                </div>
+<div class="bg-gradient-to-r from-[#491111] to-[#8B0000] shadow-lg backdrop-blur-md bg-opacity-60">
+    <nav class="px-6 sm:px-8 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h2 class="text-white font-semibold text-lg">{{ $user->name }}</h2>
             </div>
+
+            <img class="h-14 w-14 rounded-full border-4 border-transparent hover:border-pink-500 transition-all duration-300"
+                src="{{ $user->profile_photo_link ?? 'https://www.google.com/imgres?q=temple%20owl%20icon&imgurl=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Ftemple-owls-logo.png&imgrefurl=https%3A%2F%2Fbrandslogos.com%2Ft%2Ftemple-owls-logo%2F&docid=9LD6o8DoD5nAYM&tbnid=9LX3xPPZImnTwM&vet=12ahUKEwjgj76yvdiJAxX1a_UHHXrHLtQQM3oECDAQAA..i&w=1280&h=1280&hcb=2&ved=2ahUKEwjgj76yvdiJAxX1a_UHHXrHLtQQM3oECDAQAA' }}"
+                alt="User profile">
         </div>
     </nav>
-    <div class="bg-[#49111184] relative h-screen">
-        <div class="modal-body">
-            <div class="msg-body">
+
+    <div class="relative h-screen bg-[#49111184] flex flex-col pb-16">
+        <div class="flex-grow p-4 overflow-auto">
+            <div class="msg-body space-y-4">
                 <ul>
                     @foreach ($messages as $message)
                         @if ($message['sender'] != auth()->user()->name)
-                            <li class="text-left text-white">
-                                <p>{{$message['message']}}</p>
+                            <li class="text-left">
+                                <div class="inline-block bg-pink-600 text-white p-3 rounded-lg max-w-xs shadow-lg hover:shadow-xl transition-shadow">
+                                    <p>{{ $message['message'] }}</p>
+                                </div>
                             </li>
                         @else
-                            <li class="text-right text-white">
-                                <p>{{$message['message']}}</p>
+                            <li class="text-right">
+                                <div class="inline-block bg-pink-700 text-white p-3 rounded-lg max-w-xs shadow-lg hover:shadow-xl transition-shadow">
+                                    <p>{{ $message['message'] }}</p>
+                                </div>
                             </li>
                         @endif
                     @endforeach
                 </ul>
             </div>
         </div>
-        <div class="absolute bottom-0 left-0 right-0">
+
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#491111] to-transparent backdrop-blur-md bg-opacity-60">
             <form wire:submit="sendMessage()">
-                <input type="text" wire:model="message" class="form-control" aria-label="message..."
-                    placeholder="Write your message">
-                <button type="submit" class=" bg-black  rounded-md text-white"><i
-                        class="fa fa-paper-plane"></i>Send</button>
+                <div class="flex items-center space-x-2">
+                    <input type="text" wire:model="message" 
+                        class="flex-grow p-3 rounded-full bg-transparent text-white placeholder-gray-400 border-2 border-transparent focus:border-pink-600 focus:ring-2 focus:ring-pink-500 focus:outline-none transition duration-300"
+                        placeholder="Type a message..." aria-label="message...">
+                    <button type="submit" 
+                        class="p-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 hover:scale-105 transition-transform">
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
-
 </div>

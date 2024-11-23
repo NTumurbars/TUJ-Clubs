@@ -8,9 +8,9 @@
     @vite(['resources/css/app.css', 'resources/js/navbar.js'])
 </head>
 
-<body class="text-[#73EEDC] bg-[#320F23]">
-    <nav class="bg-gray-800">
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+<body class="text-white bg-gradient-to-r from-red-800 via-pink-700 to-red-600">
+    <nav class="bg-gradient-to-r from-red-600 to-pink-600 shadow-lg backdrop-blur-md">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
 
                 <!-- Logo and Main Navigation Links -->
@@ -21,14 +21,13 @@
                     <div class="ml-6">
                         <div class="flex space-x-4">
                             <a href="{{ route('home') }}"
-                                class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                                aria-current="page">Home</a>
+                                class="rounded-md bg-transparent px-3 py-2 text-sm font-medium text-white hover:text-pink-300 transition duration-200">Home</a>
                             <a href="{{ route('clubs.main') }}"
-                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Clubs</a>
+                                class="rounded-md bg-transparent px-3 py-2 text-sm font-medium text-white hover:text-pink-300 transition duration-200">Clubs</a>
                             <a href="{{ route('calendar') }}"
-                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
-                            <a href="{{route('chat')}}"
-                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Chats</a>
+                                class="rounded-md bg-transparent px-3 py-2 text-sm font-medium text-white hover:text-pink-300 transition duration-200">Calendar</a>
+                            <a href="{{ route('chat') }}"
+                                class="rounded-md bg-transparent px-3 py-2 text-sm font-medium text-white hover:text-pink-300 transition duration-200">Chats</a>
                         </div>
                     </div>
                 </div>
@@ -38,15 +37,14 @@
                     @guest
                         <!-- Sign In Button for Guests -->
                         <a href="{{ route('login') }}"
-                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">Sign
-                            In</a>
+                            class="rounded-md bg-pink-600 px-3 py-2 text-sm font-medium text-white hover:bg-pink-700 transition duration-200">Sign In</a>
                     @endguest
 
                     @auth
                         <!-- Profile Dropdown for Authenticated Users -->
                         <div class="relative ml-3">
                             <button type="button"
-                                class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                class="flex rounded-full bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-800"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="sr-only">Open user menu</span>
                                 <img class="h-14 w-14 rounded-full"
@@ -55,16 +53,15 @@
                             </button>
 
                             <!-- Dropdown Menu -->
-                            <div class="hidden absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            <div class="hidden absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white  py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                 tabindex="-1">
                                 <a href="{{ route('profile.show') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your
-                                    Profile</a>
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100" role="menuitem">Your Profile</a>
                                 <form method="post" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
-                                        class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"
                                         role="menuitem">Log out</button>
                                 </form>
                             </div>
@@ -75,11 +72,7 @@
         </div>
     </nav>
 
-    <main class="py-8 px-4 mx-auto max-w-screen-lg">
-
-
-
-
+    <main class="py-8 px-4 mx-auto max-w-screen-lg bg-gradient-to-t from-[#320F23] to-[#491111] rounded-lg shadow-lg">
         {{ $slot }}
     </main>
 </body>
