@@ -49,7 +49,7 @@ class ChatComponent extends Component
         $this->message = '';
     }
 
-    #[On('echo-private:chat-channel.{sender_id},MessageEvent')]
+    #[On('echo-private:chat-channel.{sender_id},sendMessage')]
     public function listenForMessage($event)
     {
         dd($event);

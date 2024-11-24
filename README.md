@@ -157,3 +157,6 @@ npm run build
 
 18:30
 https://www.youtube.com/watch?v=huLSxcxFRl4
+
+for chatting
+https://www.youtube.com/watch?v=RPRVMbR75KI
