@@ -77,21 +77,13 @@
     .error {
         @apply text-xs text-red-500 mt-1;
     }
-    table {
-        @apply w-full text-sm text-left rounded-md shadow-lg overflow-hidden mb-6 table-auto bg-white;
-    }
     thead {
         @apply text-xs uppercase font-medium border-b border-slate-100 text-slate-600;
     }
     tbody tr {
         @apply hover:bg-slate-100 w-full p-0;
     }
-    th {
-        @apply px-6 py-4;
-    }
-    td {
-        @apply px-6 py-4 border-b border-slate-100;
-    }
+
     .avatar {
         @apply w-8 h-8 rounded-full overflow-hidden object-center object-cover;
     }
@@ -174,4 +166,94 @@
     input[type="email"].inputerror {
         --tw-ring-color: red;
     }
+
+    button
+    {
+    width:40px;
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    border: 2px solid #9a9a9a;
+    }   
+
+    .c-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+    }
+    .calendar {
+        width: 1200px;
+        border: 2px solid lightgray;
+        background-color: white;
+        box-shadow: 0 0 10px #363636;
+    }
+    .c-header {
+        text-align: center;
+        padding: 15px;
+        background-color: #bf1b1b;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        position: relative; 
+    }
+    
+    .back{   
+        right: 70px;
+    }
+    
+    .forward
+    {
+        right:20px;
+    }
+    
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        width: 14.286%;
+        height: 40px;
+        text-align: center;
+        border: 2px solid lightgray;
+        font-weight: bold;
+    }
+    th {
+        background-color: #dedede;
+        color: #000;
+    }
+    td{
+        height: 100px;
+        vertical-align: top;
+        text-align: right;
+        padding: 5px;
+    }
+    td:hover {
+        background-color: #f1f1f1;
+    }
+    
+    
+    
+    .weekend
+    {
+        background-color: rgb(240, 240, 240);
+    }
+    
+    .weekend:hover
+    {
+        background-color: rgb(218, 218, 218)
+    }
+    
+    .label {
+        display: block;
+        font-size: 12px;
+        color: #bf1b1b;
+        background-color: #fde2e2;
+        margin: 5px 0; 
+        border-radius: 3px;
+        text-align: left;
+        font-weight: bold;
+    }
+
 }
