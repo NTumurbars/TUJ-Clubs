@@ -1,4 +1,3 @@
-
 const months = [
     "January",
     "February",
@@ -41,20 +40,6 @@ function renderCalendar() {
         let dayCell = document.getElementById(i + 1);
         dayCell.innerText = dayCounter;
         dayCounter++;
-    }
-
-    validDays();
-}
-
-function validDays() {
-    for (let i = 1; i <= week; i++) {
-        let day = document.getElementById(i);
-        day.style.color = "lightgray";
-    }
-
-    for (let i = week + numberOfDays[month] + 1; i <= 42; i++) {
-        let day = document.getElementById(i);
-        day.style.color = "lightgray";
     }
 }
 
