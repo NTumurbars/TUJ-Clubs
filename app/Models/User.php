@@ -70,14 +70,9 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function formResponses()
-    {
-        return $this->hasMany(FormResponse::class);
-    }
-
     public function clubRequests()
     {
-        return $this->hasMany(ClubRequest::class, 'responder_id');
+        return $this->hasMany(JoinRequest::class, 'responder_id');
     }
 
 

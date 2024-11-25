@@ -99,6 +99,18 @@
         @apply w-8 h-8 overflow-auto rounded-full bg-slate-100 focus:outline-none focus:ring-1 focus:ring-slate-100 focus:ring-offset-2 focus:ring-offset-slate-800;
     }
 
+    .alert {
+        @apply px-4 py-3 rounded mb-4;
+    }
+
+    .alert-success {
+        @apply bg-green-100 border border-green-300 text-green-500;
+    }
+
+    .alert-error {
+        @apply bg-red-100 border border-red-300 text-red-500;
+    }
+
     .card {
         /* Add shadows to create the "card" effect */
         background-color: white;
@@ -129,10 +141,6 @@
     .btn-primary {
         @apply flex w-full justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait;
     }
-
-    .btn-card {
-    }
-
     .btn-edit {
         @apply bg-indigo-500 hover:bg-blue-600;
     }

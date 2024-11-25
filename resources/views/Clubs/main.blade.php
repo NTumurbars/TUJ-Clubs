@@ -18,7 +18,7 @@
                             <div class="card mb-5">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ $club->name }}</h3>
-                                    <p class="card-text">{{ Str::limit($club->bio) }}</p>
+                                    <p class="card-text">{{ $club->bio }}</p>
                                     <br>
                                     <a href="{{ route('clubs.display', $club) }}" class="btn btn-primary">View Club</a>
                                 </div>

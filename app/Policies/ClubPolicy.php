@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Club;
 use App\Models\User;
+use App\Models\ClubMembership;
 use Illuminate\Auth\Access\Response;
 
 class ClubPolicy
@@ -58,6 +59,7 @@ class ClubPolicy
 
 
     }
+
 
     /**
      * Determine whether the user can delete the model.

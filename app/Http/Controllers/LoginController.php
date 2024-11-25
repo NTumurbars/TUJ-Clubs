@@ -75,6 +75,8 @@ class LoginController extends Controller
             $potentialUser = Socialite::driver('google')->user();
 
             //Named Error Bags
+
+            
             // if (!isset($potentialUser->user['hd']) || $potentialUser->user['hd'] !== 'temple.edu') {
             //     //there is no other way to logout so I just added this in here to debug the welcome banner message and design
         

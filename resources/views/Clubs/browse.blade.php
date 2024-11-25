@@ -4,6 +4,12 @@
     <div class="max-w-7xl mx-auto px-4 py-8">
         <h1 class="text-4xl font-bold mb-8 text-center">Browse Clubs</h1>
 
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         @if ($clubs->isEmpty())
             <p class="text-center text-gray-600">There are no clubs available to join at this time.</p>
         @else
@@ -18,13 +24,12 @@
                         </div>
                         @auth
                             <div class="p-6 bg-gray-100">
-                                <form action="{{ route('clubs.requestToJoin', $club) }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-emerald-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200">
-                                        Request to Join
-                                    </button>
-                                </form>
+
+                                <a href="{{ route('join-form.display', $club) }}"
+                                    class="w-full bg-emerald-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200">
+                                    Request to Join
+                                </a>
+
                             </div>
                         @endauth
                     </div>

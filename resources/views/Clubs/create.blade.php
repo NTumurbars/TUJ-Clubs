@@ -5,17 +5,6 @@
     <div class="container">
         <h1>Create New Club</h1>
 
-        <!-- if wrong inputs show error -->
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <strong>There were some problems with your input:</strong>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <form action="{{ route('clubs.save') }}" method="POST">
             @csrf

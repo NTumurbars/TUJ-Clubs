@@ -5,28 +5,35 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ClubRequest extends Model
+class JoinRequest extends Model
 {
     use HasFactory;
 
-    protected $table = 'club_requests';
-
     protected $fillable = [
-        'form_id',
+        'user_id',
+        'join_form_id',
+        'answer',
         'status',
         'responder_id',
         'requested_at',
         'responded_at',
     ];
 
+    protected $dates = [
+        'requested_at',
+        'responded_at',
+    ];
 
-    //A way to know which form it is related
-    
-    public function formResponse()
+    public function user()
     {
-        return $this->belongsTo(FormResponse::class);
+        return $this->belongsTo(User::class);
     }
-    // A way to know who is the responder.
+
+    public function joinForm()
+    {
+        return $this->belongsTo(JoinForm::class, 'join_form_id');
+    }
+
     public function responder()
     {
         return $this->belongsTo(User::class, 'responder_id');

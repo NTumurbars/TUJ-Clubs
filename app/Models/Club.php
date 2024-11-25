@@ -40,15 +40,15 @@ class Club extends Model
     }
 
     //There will be 1 form per club. /for now the form is only being used by club reques. But if we use it in a dfferent way we can change it/
-    public function form()
+    public function joinForm()
     {
-        return $this->hasOne(Form::class);
+        return $this->hasOne(JoinForm::class);
     }
 
     //clubrequests is also hasmany relationship
     public function clubRequests()
     {
-        return $this->hasMany(ClubRequest::class);
+        return $this->hasMany(JoinRequest::class);
     }
 
     public function isMember(User $user): bool

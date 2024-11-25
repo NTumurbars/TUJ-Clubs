@@ -12,6 +12,7 @@ const months = [
     "November",
     "December",
 ];
+
 const numberOfDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 let month = 10;
 let year = 2024;
