@@ -6,7 +6,7 @@ body {
     background-color: #f2eee8;
 }
 .calendar {
-    width: 1000px;
+    width: 1200px;
     border: 2px solid lightgray;
     background-color: white;
     box-shadow: 0 0 10px #363636;
@@ -74,4 +74,15 @@ td:hover {
 .weekend:hover
 {
     background-color: rgb(218, 218, 218)
+}
+
+.label {
+    display: block;
+    font-size: 12px;
+    color: #bf1b1b;
+    background-color: #fde2e2;
+    margin: 5px 0; 
+    border-radius: 3px;
+    text-align: left;
+    font-weight: bold;
 }

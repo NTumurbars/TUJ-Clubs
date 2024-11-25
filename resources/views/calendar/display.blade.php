@@ -1,9 +1,11 @@
 <x-layout>
+    <div class="c-body">
+    
     <div class="calendar">
-        <div class="calendar-header">
+        <div class="c-header">
             <span id='time'>November 2024</span>
             <button class="back" onclick="goBack()">
-                << /button>
+                <</button>
                     <button class="forward" onclick="goForward()">></button>
         </div>
 
@@ -64,15 +66,16 @@
                 <td class='weekend' id='35'>30</td>
             </tr>
             <tr>
-                <td class='weekend' id='36'>1</td>
-                <td id='37'>2</td>
-                <td id='38'>3</td>
-                <td id='39'>4</td>
-                <td id='40'>5</td>
-                <td id='41'>6</td>
-                <td class='weekend' id='42'>7</td>
+                <td class='weekend' id='36'></td>
+                <td id='37'></td>
+                <td id='38'></td>
+                <td id='39'></td>
+                <td id='40'></td>
+                <td id='41'></td>
+                <td class='weekend' id='42'></td>
             </tr>
         </table>
+    </div>
     </div>
     @vite('resources/js/calendar.js')
 
