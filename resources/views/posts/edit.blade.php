@@ -32,6 +32,12 @@
             </div>
 
             @can('createGlobalClub', $club)
+                <div class="form-group mb-3">
+
+
+                    <input type="date" name="start_date" id="start_date" {{ old('start_date', $post->start_date) }}>
+                    <label class="form-start-date-label" for="start_date">Assign Start Date</label>
+                </div>
                 <div class="form-group form-check mb-3">
                     <input type="checkbox" name="is_global" id="is_global" class="form-check-input"
                         {{ old('is_global', $post->is_global) ? 'checked' : '' }}>

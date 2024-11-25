@@ -59,6 +59,7 @@ return new class extends Migration
             $table->boolean('is_global')->default(false);
             $table->string('title');
             $table->text('content');
+            $table->date('start_date')->nullable();
             //we need to think about how to do a event type announcement with a date. Well this will need us to wait until we figure out how the calendar will work.
             //Because if we do a dated post we might need to create an another table for post types or maybe a different approuch.
             $table->timestamps();

@@ -13,6 +13,7 @@ class Post extends Model
         'user_id',
         'is_global',
         'title',
+        'start_date',
         'content',
     ];
 

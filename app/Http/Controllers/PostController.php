@@ -22,6 +22,8 @@ class PostController extends Controller
 
     public function save(Request $request, Club $club)
     {
+
+        // dd($request);
         $isGlobal = $request->input('is_global');
     
         if ($isGlobal) {
@@ -35,6 +37,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'is_global' => 'boolean',
+            'start_date' => ' nullable|date',
         ]);
 
 
@@ -47,6 +50,7 @@ class PostController extends Controller
         $post->is_global = $request->has('is_global') ? true : false;
         $post->title = $validated['title'];
         $post->content = $validated['content'];
+        $post->start_date = $validated['start_date'];
     
     
         $post->save();
@@ -70,6 +74,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'is_global' => 'boolean',
+            'start_date' => 'date',
         ]);
 
         $post->title = $validated['title'];
