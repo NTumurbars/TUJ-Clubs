@@ -36,9 +36,6 @@ Route::get('clubs', [ClubController::class, 'main'])->name('clubs.main');
 
 //Authenticated routes
 Route::middleware('auth')->group(function () {
-    
-    //Chat routes
-    Route::get('/chat', [ChatController::class, 'chatPage'])->name('chat');
 
     //Calendar
       Route::get('/calendar', [CalendarController::class, 'calendarPage'])->name('calendar');
