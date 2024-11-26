@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Laravel App') }}</title>
-    @vite(['resources/css/app.css', "resources/js/app.js", 'resources/js/calendar.js', 'resources/js/navbar.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/calendar.js', 'resources/js/navbar.js'])
 
 </head>
 
-<body class="text-white bg-gradient-to-r from-[#a90e0e] via-[#290000] to-black">
+<body>
     <nav class="bg-gradient-to-r from-[#7a0000] via-[#290000] to-black shadow-lg backdrop-blur-md">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
@@ -39,7 +39,8 @@
                     @guest
                         <!-- Sign In Button for Guests -->
                         <a href="{{ route('login') }}"
-                            class="rounded-md bg-pink-600 px-3 py-2 text-sm font-medium text-white hover:bg-pink-700 transition duration-200">Sign In</a>
+                            class="rounded-md bg-pink-600 px-3 py-2 text-sm font-medium text-white hover:bg-pink-700 transition duration-200">Sign
+                            In</a>
                     @endguest
 
                     @auth
@@ -59,7 +60,8 @@
                                 role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                 tabindex="-1">
                                 <a href="{{ route('profile.show') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100" role="menuitem">Your Profile</a>
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100" role="menuitem">Your
+                                    Profile</a>
                                 <form method="get" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
