@@ -170,5 +170,5 @@
         @endif
     </div>
 
-    @vite(['resources/js/app.js', 'resources/js/dropdown.js'])
+    @vite(['resources/js/dropdown.js'])
 </x-layout>

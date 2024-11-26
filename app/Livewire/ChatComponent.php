@@ -2,42 +2,75 @@
 
 namespace App\Livewire;
 
-use App\Events\MessageEvent;
+use App\Models\User;
 use App\Models\Message;
 use Livewire\Component;
-use Livewire\Attribute\On;
-use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
+use App\Events\MessageSendEvent;
 
 class ChatComponent extends Component
 {
-    public $message;
-    public $convo = [];
+    public $user;
+    public $sender_id;
+    public $receiver_id;
+    public $message = '';
+    public $messages = [];
 
-    public function mount()
+    public function render()
     {
-        $messages = Message::all();
-        foreach ($messages as $message) {
-            $this->convo[] = ['username' => $message->user->name, 'message' => $message->message, 'created_at' => $message->created_at, 'profile_photo_link' =>$message->user->profile_photo_link];
-        }
+        return view('livewire.chat-component');
     }
 
-    public function submitMessage()
+    public function mount($user_id)
     {
-        // if (empty($this->text)) 
-        // {
-        //     return;
-        // }
-        MessageEvent::dispatch(Auth::user()->id, $this->message);
+        $this->sender_id = auth()->user()->id;
+        $this->receiver_id = $user_id;
+
+        $messages = Message::where(function ($query) {
+            $query->where('sender_id', $this->sender_id)->where('receiver_id', $this->receiver_id);
+        })->orWhere(function ($query) {
+                $query->where('sender_id', $this->receiver_id)->where('receiver_id', $this->sender_id);
+        })->with('sender:id,name', 'receiver:id,name')->get();
+
+
+        foreach($messages as $message)
+        {
+            $this->chatMessage($message);
+        }
+
+
+        $this->user = User::find($user_id);
+    }
+
+    public function sendMessage()
+    {
+        $message = new Message();
+        $message->sender_id = $this->sender_id;
+        $message->receiver_id = $this->receiver_id;
+        $message->message = $this->message;
+        $message->save();
+        $this->chatMessage($message);
+        broadcast(new MessageSendEvent($message))->toOthers();
+
         $this->message = '';
     }
 
-    // #[On('echo:out-channel,MessageEvent')]
-    // public function litenForMessage($data)
-    // {
-    //     $this->convo[] = ['username' => $data[name], 'message' => $data[message]];
-    // }
-    public function render()
+    #[On('echo-private:chat-channel.{sender_id},MessageSendEvent')]
+    public function listenForMessage($event)
     {
-        return view('chat.chat-component');
+        $chatMessage = Message::whereId($event['message']['id'])->with('sender:id,name', 'receiver:id,name')->first();
+        $this->chatMessage($chatMessage);
+    }
+
+    public function chatMessage($message)
+    {
+        $this->messages[]=
+        [
+            'id' => $message->id,
+            'message' => $message->message,
+            'sender' => $message->sender->name,
+            'receiver' => $message->receiver->name,
+        ];
     }
 }
+

@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Events;
-use App\Models\User;
-use App\Models\Message;
+
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,24 +11,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageEvent implements ShouldBroadcastNow
+class MessageSendEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $username;
     public $message;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($user_id, $message)
+    public function __construct($message)
     {
-        $newMessage = New Message();
-        $newMessage->user_id = $user_id;
-        $newMessage->message = $message;
-        $newMessage->save();
         $this->message = $message;
-        $this->username = User::find($user_id)->name;
     }
 
     /**
@@ -40,7 +33,7 @@ class MessageEvent implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel('our-channel'),
+            new PrivateChannel('chat-channel.'.$this->message->receiver_id),
         ];
     }
 }

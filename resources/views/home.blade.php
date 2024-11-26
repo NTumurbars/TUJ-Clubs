@@ -1,7 +1,7 @@
 <x-layout>
 
     @if (auth()->check())
-        <div {{-- added some design. I think it looks good though.  --}}
+        <div
             class="bg-green-50 border border-green-200 text-green-600 px-3 py-2 rounded-lg shadow-sm mb-3 text-sm font-medium">
             Welcome, {{ auth()->user()->name }}!
         </div>
