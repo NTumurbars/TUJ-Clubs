@@ -77,6 +77,7 @@
         </div>
     </div>
     <script>
+        const globalPosts = @json($globalPosts);
         const months = [
             "January",
             "February",
@@ -97,6 +98,7 @@
         let year = 2024;
         let week = 5;
 
+        //clears the calendar
         function clearCalendar() {
             for (let i = 1; i <= 42; i++) {
                 let dayCell = document.getElementById(i);
@@ -107,21 +109,47 @@
 
         function renderCalendar() {
             clearCalendar();
+
             let days = numberOfDays[month];
             if (month === 1 && year % 4 === 0) {
-                days = 29; //leap year
+                days = 29; //checks leap year 
             }
 
-            week = new Date(year, month, 1).getDay();
-
+            week = new Date(year, month, 1).getDay(); //getDay() gives day of the week (0=sunday, 1=monday, etc)
             let dayCounter = 1;
             for (let i = week; i < week + days; i++) {
                 let dayCell = document.getElementById(i + 1);
                 dayCell.innerText = dayCounter;
+
+                //finds posts from the dates
+                const dayPosts = globalPosts.filter(post => {
+                    const postDate = new Date(post.start_date);
+                    return (
+                        postDate.getFullYear() === year &&
+                        postDate.getMonth() === month &&
+                        postDate.getDate() === dayCounter
+                    );
+                });
+
+                //each post is appended under the date
+                dayPosts.forEach(post => {
+                    const postSpan = document.createElement('span');
+                    postSpan.textContent = post.title;
+                    postSpan.style.display = 'block';
+                    postSpan.style.fontSize = '13px';
+                    postSpan.style.fontWeight = 'normal';
+                    postSpan.style.textAlign = 'left';
+                    postSpan.style.backgroundColor = 'khaki';
+                    postSpan.style.borderRadius = '5px';
+                    postSpan.style.marginBottom = '3px';
+                    dayCell.appendChild(postSpan);
+                });
+
                 dayCounter++;
             }
         }
 
+        //loads the previous month
         function goBack() {
             month -= 1;
             if (month < 0) {
@@ -132,6 +160,7 @@
             renderCalendar();
         }
 
+        //loads the next month
         function goForward() {
             month += 1;
             if (month > 11) {
@@ -142,12 +171,15 @@
             renderCalendar();
         }
 
+        //updates the title
         function getMonth() {
             document.getElementById("time").innerText = months[month] + " " + year;
         }
 
+        //calls the these function at the start
         document.addEventListener("DOMContentLoaded", function() {
             getMonth();
+            renderCalendar();
         });
     </script>
 
