@@ -6,7 +6,7 @@
 
 @layer base {
     body {
-        @apply text-white bg-gradient-to-r from-[#a90e0e] via-[#290000] to-black;
+        @apply text-white bg-gradient-to-r from-[#dc6b6b] via-[#b14949] to-red-500;
         font-family: "Poppins", sans-serif;
         background-color: #e8f9fd;
         color: black;
@@ -59,7 +59,7 @@
         @apply bg-slate-800 shadow-md;
     }
     nav {
-        @apply p-5 mx-auto justify-between;
+        @apply p-5 mx-auto justify-between bg-gradient-to-r from-[#7a0000] via-[#290000] to-black shadow-lg backdrop-blur-md;
         background-color: #1675a4;
     }
     main {
