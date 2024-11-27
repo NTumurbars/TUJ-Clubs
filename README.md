@@ -1,4 +1,8 @@
-# TUJ-Clubs Application Report
+# TUJ-Clubs Web Application Project Instructions
+
+## Group Members
+
+**Tumurbars Narantuya, Anurag Reddy, Ryuto Thuong Thai**
 
 ## Table of Contents
 
