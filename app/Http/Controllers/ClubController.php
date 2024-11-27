@@ -48,7 +48,7 @@ class ClubController extends Controller
         ]);
 
         $club = Club::create($validated);
-
+        //defualt form when a new club is created
         $club->joinForm()->create([
             'title' => 'Join ' . $club->name,
             'question' => 'Why do you want to join us?',

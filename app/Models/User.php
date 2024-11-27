@@ -48,8 +48,9 @@ class User extends Authenticatable
     public function getRoleColor(string $role): string
     {
         return match ($role) {
-            'leader' => 'text-green-500',
-            'faculty' => 'text-purple-500',
+            'leader' => 'text-red-500',
+            //I don't know why indigo is not working
+            'faculty' => 'text-indigo-700',
             'member' => 'text-blue-500',
             default => 'text-gray-500',
         };
