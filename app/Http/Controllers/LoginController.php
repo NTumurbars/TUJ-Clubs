@@ -77,13 +77,13 @@ class LoginController extends Controller
             //Named Error Bags
 
             
-            // if (!isset($potentialUser->user['hd']) || $potentialUser->user['hd'] !== 'temple.edu') {
-            //     //there is no other way to logout so I just added this in here to debug the welcome banner message and design
+            if (!isset($potentialUser->user['hd']) || $potentialUser->user['hd'] !== 'temple.edu') {
+                //there is no other way to logout so I just added this in here to debug the welcome banner message and design
         
-            //     return redirect()
-            //         ->route('login')
-            //         ->withErrors(['email' => 'You must use temple account to log in.']);
-            // }
+                return redirect()
+                    ->route('login')
+                    ->withErrors(['email' => 'You must use temple account to log in.']);
+            }
 
             //#firstOrCreate
             //The firstOrCreate method is very similar to the firstOrNew method.
