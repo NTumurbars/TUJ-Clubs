@@ -86,7 +86,7 @@
 
 3. **Run the Application**:
 
-    - Open two more terminals in VSCode.
+    - Open three more terminals in VSCode.
     - Run the following commands in their respective terminals:
         ```sh
         php artisan serve
