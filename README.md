@@ -108,7 +108,3 @@ The following resources were referenced or used during development:
     - **Message Alert Design**: [Tailwind Alerts](https://tailwindui.com/components/application-ui/feedback/alerts)
 
 **Shoutout**: To the best professor ever, **Farid Nakhle**, for the guidance and support.
-
----
-
-Feel free to contribute or reach out if you have any questions or issues with setting up the project.
