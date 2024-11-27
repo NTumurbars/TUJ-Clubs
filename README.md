@@ -1,5 +1,15 @@
 # TUJ-Clubs Application Report
 
+## Table of Contents
+
+-   [Required Technologies](#required-technologies)
+-   [Basic Setup Instructions](#basic-setup-instructions)
+    -   [Step 1: Install Required Tools](#step-1-install-required-tools)
+    -   [Step 2: Project Setup](#step-2-project-setup)
+    -   [Step 3: Installing Dependencies and Running the Application](#step-3-installing-dependencies-and-running-the-application)
+-   [Notes](#notes)
+-   [Citation](#citation)
+
 ## Required Technologies
 
 -   **Laptop or PC**: Tested on Windows 11 and Mac M3
@@ -32,6 +42,7 @@
     - Download either Chrome or Brave.
 
 4. **Composer**:
+
     - Install Composer, version 2.8.2. [Download here](https://getcomposer.org/download/).
 
 ### Step 2: Project Setup
@@ -42,6 +53,7 @@
     - Use **VSCode** to open the extracted folder.
 
 2. **Database Configuration**:
+
     - Edit the `.env` file to update the database configuration fields to match your setup. Update as follows:
         ```env
         DB_CONNECTION=mysql
@@ -74,7 +86,7 @@
 
 3. **Run the Application**:
 
-    - Open three more terminals in VSCode.
+    - Open two more terminals in VSCode.
     - Run the following commands in their respective terminals:
         ```sh
         php artisan serve
@@ -83,9 +95,10 @@
         ```
 
 4. **Access the Application**:
+
     - If everything runs without errors, open [http://localhost:8000/](http://localhost:8000/) to access the TUJ-Clubs application.
 
-### Notes
+## Notes
 
 -   When opening the extracted file in VSCode, you might encounter some warnings and be asked to grant permissions.
 -   These warnings are related to the absence of a code signature, which verifies the integrity of the received code. Please trust the source and proceed to grant the necessary permissions.
