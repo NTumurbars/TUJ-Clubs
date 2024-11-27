@@ -1,75 +1,148 @@
 TUJ-Clubs Application Report
+Table of Contents
+Prerequisites
+Basic Setup
+1. Install MySQL Workbench
+2. Install Laravel Herd
+3. Install a Browser
+4. Install Composer
+5. Set Up the Project
+6. Install Dependencies and Migrate Database
+7. Start the Development Servers
+8. Access the Application
+Notes
+Citations and References
+Acknowledgments
+Prerequisites
+Ensure you have the following installed:
 
-Required Tech:
 Laptop or PC (Tested on Windows 11 and Mac M3)
 Laravel Herd
-Node.js –version: 22.9.0 (Inside Laravel Herd)
-PHP –version: 8.3 (Inside Laravel Herd)
+Node.js version 22.9.0 (inside Laravel Herd)
+PHP version 8.3 (inside Laravel Herd)
 VSCode
-Composer
+Composer version 2.8.2
 MySQL Workbench
-Browser (Chrome, Brave)
+Browser (Chrome or Brave)
+Basic Setup
+1. Install MySQL Workbench
+Download from MySQL Community Downloads.
+Follow the installation steps.
+After installation:
+Open MySQL Workbench.
+Create a server and a schema.
+Important: Remember your server name, port number (default is 3306), server password, and schema name.
+2. Install Laravel Herd
+Download from Laravel Herd.
+Follow the installation instructions.
+Ensure you download the full support package (includes Node.js and PHP).
+Note: Set PHP and Node.js to the specified versions.
+3. Install a Browser
+Install either Chrome or Brave.
+4. Install Composer
+Download Composer version 2.8.2 from getcomposer.org.
+5. Set Up the Project
+Download the Project
 
-Basic Setup:
-Download MySQL Workbench: From the MySQL Community Downloads, follow the installation steps to download it. After the installation, open the application to create a server and a schema (inside the server). IMPORTANT: Remember your server name, port number (by default it should be 3306), your server’s password and schema’s name [we need it later].
+Obtain the ZIP file containing the project.
+Extract the contents.
+Open in VSCode
 
-Download Laravel Herd: Follow the installation instructions. Make sure to download the full support file (package with node and php). NOTE: Change the versions of php and node to the specified versions.
+Launch VSCode.
+Open the extracted project folder.
+Configure Environment Variables
 
-Download A Browser: Either Chrome or Brave since these are the ones we tested.
+Locate the .env file.
 
-Install Composer version 2.8.2.
+Update the database fields:
 
-Download the zip file containing the project and extract the file. Use VSCode to open the extracted folder. Make changes in env file under the databases fields to match your database setup
-{
+env
+Copy code
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=tuj_club
 DB_USERNAME=root
 DB_PASSWORD=1234
-}
+6. Install Dependencies and Migrate Database
+Open the Terminal in VSCode
 
-Now open terminals using the terminal option on the top left of VSCode. Copy paste the following commands into the terminal (one at a time)
-php artisan migrate:fresh
+Go to Terminal > New Terminal.
+Run Commands
+
+Execute the following one at a time:
+
+bash
+Copy code
 composer install
 composer require laravel/socialite
 composer require livewire/livewire
+php artisan migrate:fresh
 php artisan install:broadcasting
 npm install
 npm run build
+7. Start the Development Servers
+Ensure ports 5173, 8000, and 8080 are free.
 
-Make sure that your ports 5173, 8000, 8080 are available. Now open 2 more terminals and run the following commands in their respective terminals:
+Open three terminals in VSCode.
+
+Run the following in separate terminals:
+
+Terminal 1:
+
+bash
+Copy code
 php artisan serve
+Terminal 2:
+
+bash
+Copy code
 npm run dev
+Terminal 3:
+
+bash
+Copy code
 php artisan reverb:start
+8. Access the Application
+Open your browser.
+Navigate to http://localhost:8000/.
+Notes
+VSCode Warnings:
+You may encounter warnings or permission prompts due to missing code signatures.
+Recommendation: Ignore these warnings and grant the required permissions.
+Citations and References
+Calendar Layout:
 
-Upon running everything without errors use the link below to access TUJ-clubs  
-http://localhost:8000/
+HTML Tables
+Laravel Documentation:
 
-NOTE:
-Opening the extracted file in VSCode might throw some warnings and the project setup would require the user to grant some permissions. The warnings are due to the absence of “signature” (which is used to make sure that the code you receive isn't being tempered on its way. We would love you to trust us), so ignore them and grant the required permissions
+Laravel Docs (v11.x)
+JavaScript and CSS for Calendar:
 
-Citation
-Used for creating a layout of the calendar
-https://www.w3schools.com/html/html_tables.asp
-Used for creating routes, controllers, migrations, policies, and views
-https://laravel.com/docs/11.x
-Referenced some of the js functionalities to update the calendar as well as some css
-https://www.youtube.com/watch?v=C-rODtCYUbo
-Used for calling calendar’s js functions when first loaded
-https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
-Used to extract the day, the month, and the year from the calendar about the global posts
-https://www.w3schools.com/js/js_date_methods.asp
-Used to find all global posts to display in the calendar by using @json (Rendering Json)
-https://laravel.com/docs/10.x/blade#rendering-json
-Referenced for the chat feature
-https://www.youtube.com/watch?v=RPRVMbR75KI
-Used for building dynamic, reactive user interfaces
-https://laravel-livewire.com/
-General CSS
-Shoutout to the best professor ever, Farid Nakhle
-Tailwind for CSS
-https://tailwindui.com/components
-Navbar design (HTML and CSS) - https://flowbite.com/docs/components/navbar/
-Message alert design (HTML and CSS)
-https://tailwindui.com/components/application-ui/feedback/alerts
+YouTube Tutorial
+DOMContentLoaded Event:
+
+MDN Web Docs
+JavaScript Date Methods:
+
+W3Schools Date Methods
+Rendering JSON in Blade:
+
+Blade Templates
+Chat Feature Reference:
+
+YouTube Tutorial
+Laravel Livewire:
+
+Livewire Official Site
+Tailwind CSS Components:
+
+Tailwind UI
+Navbar Design:
+
+Flowbite Navbar
+Message Alert Design:
+
+Tailwind UI Alerts
+Acknowledgments
+Special Thanks: To Professor Farid Nakhle for guidance and support.
